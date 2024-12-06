@@ -1,41 +1,49 @@
-//Establecemos constantes para la configuración de la aplicación
-import 'package:flutter/material.dart'; //Importamos el paquete material
+import 'package:flutter/material.dart'; // Importamos el paquete Material
 
 class Config {
-  static MediaQueryData? mediaQueryData; //Datos de la consulta de medios
-  static double? anchodepantalla; //Ancho de la pantalla
-  static double? altodepantalla; //Altura de la pantalla
+  // Datos de la consulta de medios
+  static MediaQueryData? mediaQueryData;
+  static double? anchoDePantalla; // Ancho de la pantalla
+  static double? altoDePantalla; // Altura de la pantalla
 
+  // Método para inicializar las variables con el contexto
   static void init(BuildContext context) {
-    mediaQueryData =
-        MediaQuery.of(context); //Obtenemos los datos de la consulta de medios
-    anchodepantalla =
-        mediaQueryData!.size.width; //Obtenemos el ancho de la pantalla
-    altodepantalla =
-        mediaQueryData!.size.height; //Obtenemos la altura de la pantalla
+    mediaQueryData = MediaQuery.of(context); // Obtenemos los datos de la consulta de medios
+    anchoDePantalla = mediaQueryData!.size.width; // Obtenemos el ancho de la pantalla
+    altoDePantalla = mediaQueryData!.size.height; // Obtenemos la altura de la pantalla
   }
 
-  static get anchodePantalla {
-    return anchodepantalla!; //Retornamos el ancho de la pantalla
+  // Getters para acceder a las dimensiones de pantalla
+  static double get obtenerAnchoDePantalla {
+    if (anchoDePantalla == null) {
+      throw Exception("Config no ha sido inicializado. Llama a init(context) primero.");
+    }
+    return anchoDePantalla!;
   }
 
-  static get altodePantalla {
-    return altodepantalla!; //Retornamos la altura de la pantalla
+  static double get obtenerAltoDePantalla {
+    if (altoDePantalla == null) {
+      throw Exception("Config no ha sido inicializado. Llama a init(context) primero.");
+    }
+    return altoDePantalla!;
   }
-  //definimos el espacio de la altura de la pantalla
-  // ignore: constant_identifier_names
-  static const espacioPequeño = SizedBox(height: 25,);
-  static final espaciomediano = SizedBox(height: altodepantalla != null ? altodepantalla! * 0.05 : 0);
-  static final espaciogrande = SizedBox(height: altodepantalla != null ? altodepantalla! * 0.08 : 0);
 
-    //forma del texto bordes redondeados
-    static const OutlinedBorder = OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0))
-        );
+  // Espacios predefinidos
+  static const espacioPequeño = SizedBox(height: 25); // Espacio fijo
+  static SizedBox get espacioMediano => SizedBox(
+        height: altoDePantalla != null ? altoDePantalla! * 0.05 : 0,
+      );
+  static SizedBox get espacioGrande => SizedBox(
+        height: altoDePantalla != null ? altoDePantalla! * 0.08 : 0,
+      );
 
-    static const focusedBorder = OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        borderSide: BorderSide(color: Colors.blue, width: 2.0)
-        );
+  // Estilos de bordes para entradas de texto
+  static const bordeRedondeado = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+  );
 
+  static const bordeEnfocado = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    borderSide: BorderSide(color: Colors.blue, width: 2.0),
+  );
 }
