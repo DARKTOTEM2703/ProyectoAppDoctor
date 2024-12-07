@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         //esta es la ruta de la aplicación es la pagina de autinticación (login and register)
         // Rutas de la aplicación
         '/': (context) => AuthPage(), // Ruta de la página de autenticación
-        //este es el main layout de la aplicación despues de la autenticación
+        //esta sera la ruta de la pagina principal de la aplicación despues de la autenticación
         'main':(context)=>
       },
       home: const MyHomePage(title: 'Doctor App'), // Página de inicio
