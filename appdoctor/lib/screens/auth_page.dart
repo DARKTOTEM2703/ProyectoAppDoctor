@@ -33,7 +33,7 @@ class _AuthPageState extends State<AuthPage> {
                   CrossAxisAlignment.start, // Alineación cruzada al inicio
               children: <Widget>[
                 Text(
-                  APPText.obtenerTexto(
+                  APPText.obtenerTexto(//se llama al metodo obtenerTexto de la clase APPText
                       'es', 'welcome'), // Obtiene el texto de bienvenida
                   style: const TextStyle(
                     fontSize: 36, // Tamaño de la fuente de 30

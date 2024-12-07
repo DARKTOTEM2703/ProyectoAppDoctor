@@ -1,6 +1,8 @@
 //ESTA CLASE CONTIENE LOS TEXTOS DE LA APLICACIÓN
 class APPText {
+  //se declara la clase que contiene los textos de la aplicación
   static final Map<String, Map<String, String>> textos = {
+    //metodo para agregar los textos en diferentes idiomas
     'en': {
       'welcome':
           'Welcome to the Doctor App', // Bienvenido a la aplicación del Doctor
