@@ -4,9 +4,8 @@ class APPText {
   static final Map<String, Map<String, String>> textos = {
     //metodo para agregar los textos en diferentes idiomas
     'en': {
-      'welcome':
-          'Welcome to the Doctor App', // Bienvenido a la aplicación del Doctor
-      'signIn': 'Sign In to continue', // Inicia sesión para continuar
+      'welcome': 'Welcome', // Bienvenido a la aplicación del Doctor
+      'signIn': 'Sign In to your account', // Inicia sesión para continuar
       'registered_text': 'already have an account?', // ¿Ya tienes una cuenta?
       'register_text':
           'You can easily sign in up, and connect to the Doctors nearby you', // Puedes registrarte fácilmente y conectarte con los Doctores cercanos a ti
@@ -16,9 +15,8 @@ class APPText {
       'forgot-password': 'Forgot Your Password?', // ¿Olvidaste tu contraseña?
     },
     'es': {
-      'welcome':
-          'Bienvenido a la aplicación del Doctor', // Welcome to the Doctor App
-      'signIn': 'Inicia sesión para continuar', // Sign In to continue
+      'welcome': 'Bienvenido', // Welcome to the Doctor App
+      'signIn': 'Inicia sesión en tu cuenta', // Sign In to continue
       'registered_text': '¿Ya tienes una cuenta?', // already have an account?
       'register_text':
           'Puedes registrarte fácilmente y conectarte con los Doctores cercanos a ti', // You can easily sign in up, and connect to the Doctors nearby you
