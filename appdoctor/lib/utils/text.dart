@@ -27,8 +27,10 @@ class APPText {
     },
     // Puedes agregar más idiomas aquí // You can add more languages here
   };
-
-  static String getText(String languageCode, String key) {
-    return texts[languageCode]?[key] ?? key;
+// Método para obtener el texto de la aplicación
+  static String obtenerTexto(String lenguajesCodigo, String llave) {
+    /*esto lo que hace es que si el texto no se encuentra en el idioma seleccionado
+    ,se mostrará el texto en el idioma original*/
+    return texts[lenguajesCodigo]?[llave] ?? llave;
   }
 }
