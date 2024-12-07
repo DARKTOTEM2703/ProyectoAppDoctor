@@ -1,3 +1,4 @@
+import 'package:appdoctor/main_layout.dart';
 import 'package:appdoctor/screens/auth_page.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,9 @@ class MyApp extends StatelessWidget {
         // Rutas de la aplicación
         '/': (context) => AuthPage(), // Ruta de la página de autenticación
         //esta sera la ruta de la pagina principal de la aplicación despues de la autenticación
-        'main':(context)=>
+        'main': (context) => MainLayout(), // Ruta de la página principal
       },
-      home: const MyHomePage(title: 'Doctor App'), // Página de inicio
+      //   home: const MyHomePage(title: 'Doctor App'), // Página de inicio
     );
   }
 }
