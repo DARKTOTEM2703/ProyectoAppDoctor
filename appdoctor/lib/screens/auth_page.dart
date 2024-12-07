@@ -4,14 +4,21 @@ import 'package:flutter/material.dart';
 
 // Definición de un StatefulWidget llamado AuthPage que muestra la página de autenticación
 class AuthPage extends StatefulWidget {
-  const AuthPage({super.key}); // Llamar al constructor de la clase padre correctamente
+  const AuthPage(
+      {super.key}); // Llamar al constructor de la clase padre correctamente
   @override
-  State<AuthPage> createState() =>_AuthPageState(); // Crea el estado asociado a este widget
+  State<AuthPage> createState() =>
+      _AuthPageState(); // Crea el estado asociado a este widget
 }
 
 // Clase que maneja el estado del widget AuthPage
 class _AuthPageState extends State<AuthPage> {
+  @override
+  void initState() {
+    super.initState();
     Config.init(context); // Inicializa las variables de Config con el contexto
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,29 +33,32 @@ class _AuthPageState extends State<AuthPage> {
         ),
         child: SafeArea(
           child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.start, // Alineación principal en el inicio
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Alineación cruzada al inicio
-              children: <Widget>[
-                Text(
-                  APPText.obtenerTexto(//se llama al metodo obtenerTexto de la clase APPText
-                      'es', 'welcome'), // Obtiene el texto de bienvenida
-                  style: const TextStyle(
-                    fontSize: 36, // Tamaño de la fuente de 30
-                    fontWeight: FontWeight.bold, // Fuente en negrita
-                  ),
+            mainAxisAlignment:
+                MainAxisAlignment.start, // Alineación principal en el inicio
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Alineación cruzada al inicio
+            children: <Widget>[
+              Text(
+                APPText.obtenerTexto(
+                    //se llama al metodo obtenerTexto de la clase APPText
+                    'es',
+                    'welcome'), // Obtiene el texto de bienvenida
+                style: const TextStyle(
+                  fontSize: 36, // Tamaño de la fuente de 30
+                  fontWeight: FontWeight.bold, // Fuente en negrita
                 ),
-                  Config.espacioPequeno, // Espacio pequeño
-                  Text(
-                    APPText.obtenerTexto('es', 'signIn'), // Obtiene el texto de inicio de sesión
-                    style: const TextStyle(
-                      fontSize: 16, // Tamaño de la fuente de 24
-                      fontWeight: FontWeight.bold, // Fuente en negrita
-                    ),
-                  )
-              ], // Lista de widgets hijos
               ),
+              Config.espacioPequeno, // Espacio pequeño
+              Text(
+                APPText.obtenerTexto(
+                    'es', 'signIn'), // Obtiene el texto de inicio de sesión
+                style: const TextStyle(
+                  fontSize: 16, // Tamaño de la fuente de 24
+                  fontWeight: FontWeight.bold, // Fuente en negrita
+                ),
+              )
+            ], // Lista de widgets hijos
+          ),
         ),
       ),
     );
