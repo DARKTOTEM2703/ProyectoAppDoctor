@@ -47,4 +47,5 @@ class Config {
     borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: Colors.redAccent, width: 2),
   ); // Bordes de error con color rojo cuando hay un error
+  static const primaryColor = Colors.greenAccent; // Color primario verde
 }

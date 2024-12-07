@@ -1,3 +1,4 @@
+import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,8 +20,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Doctor App', // Título de la aplicación
       debugShowCheckedModeBanner: false, // Ocultamos la cinta de depuración
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        // Definimos el tema de la aplicación
+        inputDecorationTheme:
+            const InputDecorationTheme(), // Tema de decoración de entrada
+        /* Aqui definimos el color de enfoque usando la clase Config
+        para obtener el color primario previamente configurado en config.dart*/
+        focusColor: Config.primaryColor,
       ),
       home: const MyHomePage(title: 'JOSUE GAMBOA'),
     );
