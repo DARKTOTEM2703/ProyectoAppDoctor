@@ -8,28 +8,33 @@ class Config {
 
   // Método para inicializar las variables con el contexto
   static void init(BuildContext context) {
-    mediaQueryData = MediaQuery.of(context); // Obtenemos los datos de la consulta de medios
-    anchoDePantalla = mediaQueryData!.size.width; // Obtenemos el ancho de la pantalla
-    altoDePantalla = mediaQueryData!.size.height; // Obtenemos la altura de la pantalla
+    mediaQueryData =
+        MediaQuery.of(context); // Obtenemos los datos de la consulta de medios
+    anchoDePantalla =
+        mediaQueryData!.size.width; // Obtenemos el ancho de la pantalla
+    altoDePantalla =
+        mediaQueryData!.size.height; // Obtenemos la altura de la pantalla
   }
 
   // Getters para acceder a las dimensiones de pantalla
   static double get obtenerAnchoDePantalla {
     if (anchoDePantalla == null) {
-      throw Exception("Config no ha sido inicializado. Llama a init(context) primero.");
+      throw Exception(
+          "Config no ha sido inicializado. Llama a init(context) primero.");
     }
     return anchoDePantalla!;
   }
 
   static double get obtenerAltoDePantalla {
     if (altoDePantalla == null) {
-      throw Exception("Config no ha sido inicializado. Llama a init(context) primero.");
+      throw Exception(
+          "Config no ha sido inicializado. Llama a init(context) primero.");
     }
     return altoDePantalla!;
   }
 
   // Espacios predefinidos
-  static const espacioPequeño = SizedBox(height: 25); // Espacio fijo
+  static const espacioPequeno = SizedBox(height: 25); // Espacio fijo
   static SizedBox get espacioMediano => SizedBox(
         height: altoDePantalla != null ? altoDePantalla! * 0.05 : 0,
       );
