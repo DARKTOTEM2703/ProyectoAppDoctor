@@ -14,16 +14,18 @@ class APPText {
       'forgot-password': 'Forgot Your Password?', // ¿Olvidaste tu contraseña?
     },
     'es': {
-      'welcome': 'Bienvenido a la aplicación del Doctor',
-      'signIn': 'Inicia sesión para continuar',
-      'registered_text': '¿Ya tienes una cuenta?',
+      'welcome':
+          'Bienvenido a la aplicación del Doctor', // Welcome to the Doctor App
+      'signIn': 'Inicia sesión para continuar', // Sign In to continue
+      'registered_text': '¿Ya tienes una cuenta?', // already have an account?
       'register_text':
-          'Puedes registrarte fácilmente y conectarte con los Doctores cercanos a ti',
-      'singUp_text': '¿No tienes una cuenta?',
-      'social-login': 'O continuar con cuenta social?',
-      'forgot-password': '¿Olvidaste tu contraseña?',
+          'Puedes registrarte fácilmente y conectarte con los Doctores cercanos a ti', // You can easily sign in up, and connect to the Doctors nearby you
+      'singUp_text': '¿No tienes una cuenta?', // Don't have an account
+      'social-login':
+          'O continuar con cuenta social?', // Or continue with social account?
+      'forgot-password': '¿Olvidaste tu contraseña?', // Forgot Your Password?
     },
-    // Puedes agregar más idiomas aquí
+    // Puedes agregar más idiomas aquí // You can add more languages here
   };
 
   static String getText(String languageCode, String key) {

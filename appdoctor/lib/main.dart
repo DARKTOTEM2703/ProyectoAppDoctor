@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         para obtener el color primario previamente configurado en config.dart*/
         focusColor: Config.primaryColor,
       ),
-      home: const MyHomePage(title: 'JOSUE GAMBOA'),
+      home: const MyHomePage(title: 'Doctor App'), // Página de inicio
     );
   }
 }
