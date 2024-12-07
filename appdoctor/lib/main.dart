@@ -20,15 +20,22 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Doctor App', // Título de la aplicación
       debugShowCheckedModeBanner: false, // Ocultamos la cinta de depuración
       theme: ThemeData(
-          // Definimos el tema de la aplicación
+          /* Definimos el tema de la aplicación usando inputDecorationTheme asigandole 
+          la constante InputDecorationTheme que realiza la decoración de la entrada*/
+
           inputDecorationTheme: const InputDecorationTheme(
-        // Tema de decoración de entrada
+        // -----------TEMAS DE ENTRADA DE DECORACIÓN----------------
+
         /* Aqui definimos el color de enfoque usando la clase Config
         para obtener el color primario previamente configurado en config.dart*/
         focusColor: Config.colorprimario,
+        //aqui asignamos el color de enfoque
         border: Config.bordeRedondeado,
+        //aqui asignamos el borde redondeado
         focusedBorder: Config.bordeEnfocado,
+        //aqui asignamos el borde enfocado
         errorBorder: Config.bordeError,
+        //aqui asignamos el borde de error
         enabledBorder: Config.bordeRedondeado,
         /* enabledBorder sirve para cambiar el color del borde y 
         usamos la clase Config para obtener el borde redondeado definido en config.dart*/
