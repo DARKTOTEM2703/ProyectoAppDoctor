@@ -7,16 +7,22 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  static final navigatorKey = GlobalKey<
+      NavigatorState>(); // Llave global para el navegador sirve para navegar entre pantallas
+
   @override
   Widget build(BuildContext context) {
+    //Aqui definimos el tema de la aplicación
     return MaterialApp(
-      title: 'Flutter Demo',
+      navigatorKey:
+          navigatorKey, // Asignamos la llave global al navegador para poder navegar entre pantallas
+      title: 'Flutter Doctor App', // Título de la aplicación
+      debugShowCheckedModeBanner: false, // Ocultamos la cinta de depuración
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Doctor App'),
+      home: const MyHomePage(title: 'JOSUE GAMBOA'),
     );
   }
 }
@@ -43,12 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(

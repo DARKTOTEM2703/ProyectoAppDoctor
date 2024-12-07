@@ -16,39 +16,35 @@ class Config {
         mediaQueryData!.size.height; // Obtenemos la altura de la pantalla
   }
 
-  // Getters para acceder a las dimensiones de pantalla
-  static double get obtenerAnchoDePantalla {
-    if (anchoDePantalla == null) {
-      throw Exception(
-          "Config no ha sido inicializado. Llama a init(context) primero.");
-    }
-    return anchoDePantalla!;
+  //funcin para acceder a las dimensiones de pantalla
+  static get obtenerAnchoDePantalla {
+    return anchoDePantalla;
   }
 
-  static double get obtenerAltoDePantalla {
-    if (altoDePantalla == null) {
-      throw Exception(
-          "Config no ha sido inicializado. Llama a init(context) primero.");
-    }
-    return altoDePantalla!;
+  static get obtenerAltoDePantalla {
+    return altoDePantalla;
   }
 
   // Espacios predefinidos
-  static const espacioPequeno = SizedBox(height: 25); // Espacio fijo
-  static SizedBox get espacioMediano => SizedBox(
-        height: altoDePantalla != null ? altoDePantalla! * 0.05 : 0,
-      );
-  static SizedBox get espacioGrande => SizedBox(
-        height: altoDePantalla != null ? altoDePantalla! * 0.08 : 0,
-      );
+  static const espacioPequeno = SizedBox(height: 25); // Espacio fijo de 25
+  static final espacioMediano = SizedBox(
+      height: altoDePantalla! *
+          0.05); // Espacio fijo dependiendo de la altura de la pantalla
+  static final espacioGrande = SizedBox(
+    height: altoDePantalla! * 0.08,
+  ); // Espacio fijo dependiendo de la altura de la pantalla
 
   // Estilos de bordes para entradas de texto
   static const bordeRedondeado = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-  );
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ); // Bordes redondeados
 
   static const bordeEnfocado = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-    borderSide: BorderSide(color: Colors.blue, width: 2.0),
-  );
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderSide: BorderSide(color: Colors.greenAccent, width: 2),
+  ); // Bordes enfocados con color verde cuando se selecciona
+  static const bordeError = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderSide: BorderSide(color: Colors.redAccent, width: 2),
+  ); // Bordes de error con color rojo cuando hay un error
 }
