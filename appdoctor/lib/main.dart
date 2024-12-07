@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           /*bottomNavigationBarTheme sirve para cambiar 
       el tema de la barra de navegación*/
-          backgroundColor:
+          backgroundColor: //color de fondo
               Config.colorprimario, // Color de fondo de la barra de navegación
           selectedItemColor:
               Colors.white, // Color del ítem seleccionado de color blanco
