@@ -8,7 +8,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static final navigatorKey = GlobalKey<
+  static final llaveDeNavegacion = GlobalKey<
       NavigatorState>(); // Llave global para el navegador sirve para navegar entre pantallas
 
   @override
@@ -16,17 +16,28 @@ class MyApp extends StatelessWidget {
     //Aqui definimos el tema de la aplicación
     return MaterialApp(
       navigatorKey:
-          navigatorKey, // Asignamos la llave global al navegador para poder navegar entre pantallas
+          llaveDeNavegacion, // Asignamos la llave global al navegador para poder navegar entre pantallas
       title: 'Flutter Doctor App', // Título de la aplicación
       debugShowCheckedModeBanner: false, // Ocultamos la cinta de depuración
       theme: ThemeData(
-        // Definimos el tema de la aplicación
-        inputDecorationTheme:
-            const InputDecorationTheme(), // Tema de decoración de entrada
+          // Definimos el tema de la aplicación
+          inputDecorationTheme: const InputDecorationTheme(
+        // Tema de decoración de entrada
         /* Aqui definimos el color de enfoque usando la clase Config
         para obtener el color primario previamente configurado en config.dart*/
-        focusColor: Config.primaryColor,
-      ),
+        focusColor: Config.colorprimario,
+        border: Config.bordeRedondeado,
+        focusedBorder: Config.bordeEnfocado,
+        errorBorder: Config.bordeError,
+        enabledBorder: Config.bordeRedondeado,
+        /* enabledBorder sirve para cambiar el color del borde y 
+        usamos la clase Config para obtener el borde redondeado definido en config.dart*/
+        floatingLabelStyle: TextStyle(color: Config.colorprimario),
+        /* floatingLabelStyle sirve para cambiar el color del texto flotante de igual 
+          manera usando la clase Config usando el metodo "colorprimario" */
+        prefixIconColor: Colors
+            .black38, // prefixIconColor sirve para cambiar el color del icono de prefijo
+      )),
       home: const MyHomePage(title: 'Doctor App'), // Página de inicio
     );
   }

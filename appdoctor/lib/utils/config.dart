@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart'; // Importamos el paquete Material
 
 class Config {
+  /* Clase Config donde agregaremos los metodos para obtener las dimensiones de la pantalla 
+  y los colores que se usaran en la misma asi aplicando la modularidad*/
   // Datos de la consulta de medios
-  static MediaQueryData? mediaQueryData;
+  static MediaQueryData?
+      mediaQueryData; //los mediaqeurydata sirven para obterner datos de la pantalla
   static double? anchoDePantalla; // Ancho de la pantalla
   static double? altoDePantalla; // Altura de la pantalla
 
@@ -47,6 +50,6 @@ class Config {
     borderRadius: BorderRadius.all(Radius.circular(8)),
     borderSide: BorderSide(color: Colors.redAccent, width: 2),
   ); // Bordes de error con color rojo cuando hay un error
-  static const primaryColor = Colors
+  static const colorprimario = Colors
       .greenAccent; // aqui asignamos a la variable primaryColor el color verde
 }
