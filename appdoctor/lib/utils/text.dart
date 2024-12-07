@@ -1,6 +1,6 @@
 //ESTA CLASE CONTIENE LOS TEXTOS DE LA APLICACIÓN
 class APPText {
-  static final Map<String, Map<String, String>> texts = {
+  static final Map<String, Map<String, String>> textos = {
     'en': {
       'welcome':
           'Welcome to the Doctor App', // Bienvenido a la aplicación del Doctor
@@ -31,6 +31,7 @@ class APPText {
   static String obtenerTexto(String lenguajesCodigo, String llave) {
     /*esto lo que hace es que si el texto no se encuentra en el idioma seleccionado
     ,se mostrará el texto en el idioma original*/
-    return texts[lenguajesCodigo]?[llave] ?? llave;
+    return textos[lenguajesCodigo]?[llave] ??
+        llave; // te devuelve el texto en el idioma seleccionado
   }
 }
