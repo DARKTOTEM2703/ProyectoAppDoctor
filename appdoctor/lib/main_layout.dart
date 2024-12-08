@@ -8,6 +8,9 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
+//Delacamos la variable currentPage para almacenar la página actual
+  int currentPage = 0;
+  final PageController _page = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold();
