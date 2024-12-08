@@ -13,6 +13,16 @@ class _MainLayoutState extends State<MainLayout> {
   final PageController _page = PageController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: PageView(
+        controller: _page,
+        onPageChanged: (value) {
+          setState(() {
+            //Aqui actualizamos la página actual
+            currentPage = value;
+          });
+        },
+      ),
+    );
   }
 }
