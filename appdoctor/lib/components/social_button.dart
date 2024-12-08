@@ -10,7 +10,7 @@ class SocialButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {},
       child: SizedBox(
-        width: Config.anchoDePantalla! * 0.8,
+        width: Config.anchoDePantalla,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
