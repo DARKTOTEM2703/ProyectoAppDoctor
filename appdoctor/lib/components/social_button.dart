@@ -23,7 +23,7 @@ class SocialButton extends StatelessWidget {
               width: 10,
             ),
             Text(
-              'Continue with $social',
+              'Continua con $social',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
