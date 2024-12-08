@@ -94,7 +94,7 @@ class AuthPage extends StatelessWidget {
                       mainAxisAlignment:
                           MainAxisAlignment.center, // Centrar horizontalmente
                       children: const <Widget>[
-                        SocialButton(social: 'google-sing-in-button'),
+                        SocialButton(social: 'Google'),
                       ],
                     ),
                     // ...existing code...
