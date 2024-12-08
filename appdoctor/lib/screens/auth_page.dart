@@ -7,9 +7,9 @@ import '../utils/config.dart'; // Importa el archivo config.dart
 
 // Definición de un StatefulWidget llamado AuthPage que muestra la página de autenticación
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key})
-      : super(
-            key: key); // Llamar al constructor de la clase padre correctamente
+  // Clase AuthPage que extiende de StatefulWidget
+  const AuthPage(
+      {super.key}); // Llamar al constructor de la clase padre correctamente
   @override
   State<AuthPage> createState() =>
       _AuthPageState(); // Crea el estado asociado a este widget
@@ -83,7 +83,27 @@ class _AuthPageState extends State<AuthPage> {
                   Boton(
                       tittle: 'Iniciar sesión',
                       onPressed: () {},
-                      disabled: false)
+                      disabled: false,
+                    ),
+                  ),
+                  Config
+                      .espacioPequeno, // Añadir un Spacer para empujar el contenido hacia abajo
+                  Center(
+                    child: Text(
+                      APPText.obtenerTexto('es', 'social-login'),
+                      style: TextStyle(
+                        fontSize: 16, // Tamaño de la fuente de 16
+                        fontWeight: FontWeight.bold, // Fuente en negrita
+                        color: Colors.grey.shade500, // Establece el color negro
+                      ),
+                    ),
+                  ),
+                  Config.espacioPequeno,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const <Widget>[
+                        SocialButton(social: 'google-sing-in-button')
+                      ]),
                 ], // Lista de widgets hijos
               ),
             ),
