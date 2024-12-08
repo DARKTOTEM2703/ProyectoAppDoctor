@@ -97,7 +97,6 @@ class AuthPage extends StatelessWidget {
                         SocialButton(social: 'Google'),
                       ],
                     ),
-                    // ...existing code...
                   ],
                 ),
               ),

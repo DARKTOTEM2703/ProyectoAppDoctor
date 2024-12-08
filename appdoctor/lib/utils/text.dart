@@ -24,6 +24,7 @@ class APPText {
       'social-login':
           'O continuar con cuenta social?', // Or continue with social account?
       'forgot-password': '¿Olvidaste tu contraseña?', // Forgot Your Password?
+      'continue-with-google': 'Continuar con Google', // Continuar con Google
     },
     // Puedes agregar más idiomas aquí // You can add more languages here
   };
