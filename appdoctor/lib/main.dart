@@ -1,5 +1,5 @@
 import 'package:appdoctor/main_layout.dart';
-import 'package:appdoctor/screens/auth_page.dart';
+import 'package:appdoctor/screens/auth_Page.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Doctor App', // Título de la aplicación
       debugShowCheckedModeBanner: false, // Ocultamos la cinta de depuración
       theme: ThemeData(
-        /* Definimos el tema de la aplicación usando inputDecorationTheme asigandole 
+        /* Definimos el tema de la aplicación usando inputDecorationTheme asigandole
           la constante InputDecorationTheme que realiza la decoración de la entrada*/
 
         inputDecorationTheme: const InputDecorationTheme(
@@ -39,10 +39,10 @@ class MyApp extends StatelessWidget {
           errorBorder: Config.bordeError,
           //aqui asignamos el borde de error
           enabledBorder: Config.bordeRedondeado,
-          /* enabledBorder sirve para cambiar el color del borde y 
+          /* enabledBorder sirve para cambiar el color del borde y
         usamos la clase Config para obtener el borde redondeado definido en config.dart*/
           floatingLabelStyle: TextStyle(color: Config.colorprimario),
-          /* floatingLabelStyle sirve para cambiar el color del texto flotante de igual 
+          /* floatingLabelStyle sirve para cambiar el color del texto flotante de igual
           manera usando la clase Config usando el metodo "colorprimario" */
           prefixIconColor: Colors
               .black38, // prefixIconColor sirve para cambiar el color del icono de prefijo
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor:
             Colors.white, // Color de fondo de la aplicación
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          /*bottomNavigationBarTheme sirve para cambiar 
+          /*bottomNavigationBarTheme sirve para cambiar
       el tema de la barra de navegación*/
           backgroundColor: //color de fondo
               Config.colorprimario, // Color de fondo de la barra de navegación
@@ -77,4 +77,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
- 
