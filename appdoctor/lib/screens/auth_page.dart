@@ -1,5 +1,6 @@
 import 'package:appdoctor/components/boton.dart';
 import 'package:appdoctor/components/login_forms.dart';
+import 'package:appdoctor/components/social_button.dart';
 import 'package:appdoctor/utils/text.dart';
 import 'package:flutter/material.dart';
 
@@ -81,10 +82,9 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   Config.espacioPequeno,
                   Boton(
-                      tittle: 'Iniciar sesión',
-                      onPressed: () {},
-                      disabled: false,
-                    ),
+                    tittle: 'Iniciar sesión',
+                    onPressed: () {},
+                    disabled: false,
                   ),
                   Config
                       .espacioPequeno, // Añadir un Spacer para empujar el contenido hacia abajo
@@ -102,7 +102,7 @@ class _AuthPageState extends State<AuthPage> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: const <Widget>[
-                        SocialButton(social: 'google-sing-in-button')
+                        SocialButton(social: 'google-sing-in-button'),
                       ]),
                 ], // Lista de widgets hijos
               ),
