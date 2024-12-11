@@ -97,6 +97,27 @@ class AuthPage extends StatelessWidget {
                         SocialButton(social: 'Google'),
                       ],
                     ),
+                    Config.espacioPequeno,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          APPText.obtenerTexto('es', 'singUp_text'),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey.shade500),
+                        ),
+                        Text(
+                          'inicia sesion',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),

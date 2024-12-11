@@ -22,7 +22,7 @@ class APPText {
           'Puedes registrarte fácilmente y conectarte con los Doctores cercanos a ti', // You can easily sign in up, and connect to the Doctors nearby you
       'singUp_text': '¿No tienes una cuenta?', // Don't have an account
       'social-login':
-          'O continuar con cuenta social?', // Or continue with social account?
+          'O inicia sesion con?', // Or continue with social account?
       'forgot-password': '¿Olvidaste tu contraseña?', // Forgot Your Password?
       'continue-with-google': 'Continuar con Google', // Continuar con Google
     },
