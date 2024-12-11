@@ -73,7 +73,9 @@ class AuthPage extends StatelessWidget {
                     Config.espacioPequeno,
                     Boton(
                       tittle: 'Iniciar sesión',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('main');
+                      },
                       disabled: false,
                     ),
                     Config
