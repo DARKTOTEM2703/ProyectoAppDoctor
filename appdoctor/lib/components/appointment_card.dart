@@ -76,9 +76,71 @@ class _EstadoTarjetaCita extends State<TarjetaCita> {
                   ],
                 );
               }),
+              Config.espacioPequeno, // Espacio pequeño
+              Horario(), // Horario de la cita
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Horario extends StatefulWidget {
+  // Stateful widget sirve para crear widgets que pueden cambiar de estado
+  const Horario(
+      {super.key}); // Llamar al constructor de la clase padre correctamente
+
+  @override // Anulación de la función createState
+  State<Horario> createState() =>
+      _EstadoHorario(); // Devuelve el estado del horario
+}
+
+class _EstadoHorario extends State<Horario> {
+  // Estado del horario
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        // BoxDecoration es una clase que permite decorar un contenedor
+        color: Colors.grey, // Color de fondo
+        borderRadius: BorderRadius.circular(10), // Bordes redondeados
+      ),
+      width: double.infinity, // Ancho del contenedor
+      padding: const EdgeInsets.all(20), // Padding de 20
+      child: Row(
+        children: const <Widget>[
+          Icon(
+            Icons.calendar_today,
+            color: Colors.white,
+            size: 15,
+          ), // Icono de calendario
+          SizedBox(
+            width: 10, // Espacio de 10
+          ), // SizedBox es un widget que permite agregar un espacio en blanco
+          Text('Lunes 12 de Julio', // Texto del día
+              style: TextStyle(
+                color: Colors.white, // Color blanco
+              )),
+          SizedBox(
+            width: 20,
+          ),
+          Icon(
+            Icons.access_alarm,
+            color: Colors.white,
+            size: 17,
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Flexible(
+              child: Text(
+            '2:00 PM',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          )),
+        ],
       ),
     );
   }
