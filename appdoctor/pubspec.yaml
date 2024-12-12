@@ -60,6 +60,7 @@ flutter:
   assets:
     - assets/Google.png
     - assets/amanda.jpg
+    - assets/doctor_1.png
     # Agrega aquí otras imágenes si es necesario
 
   # An image asset can refer to one or more resolution-specific "variants", see

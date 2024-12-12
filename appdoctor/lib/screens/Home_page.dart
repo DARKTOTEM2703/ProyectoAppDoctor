@@ -1,3 +1,4 @@
+import 'package:appdoctor/components/appointment_card.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -49,95 +50,126 @@ class _HomePageState extends State<HomePage> {
           // Devuelve la estructura de la página de inicio
           body: Padding(
             // Padding es un widget que permite agregar relleno a un widget hijo
-            padding: const EdgeInsets.symmetric(
-                // edgeInsets.symmetric crea un padding simétrico
-                horizontal: 15,
-                vertical: 15
-                // establece el relleno horizontal y vertical
-                ),
+            padding: EdgeInsets.symmetric(
+              horizontal: constraints.maxWidth * 0.04,
+              vertical: constraints.maxHeight * 0.02,
+            ),
             child: SafeArea(
               // SafeArea es un widget que permite evitar que los elementos se superpongan en el área segura
-              child: SingleChildScrollView(
-                child: Column(
-                  // Column es un widget que permite alinear los elementos en una columna
-                  mainAxisAlignment: MainAxisAlignment
-                      .start, //esto alinea los elementos en la parte superior
-                  crossAxisAlignment: CrossAxisAlignment
-                      .start, //esto alinea los elementos en la parte izquierda
-                  children: <Widget>[
-                    // Lista de widgets
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween, // Alineación principal entre los elementos
-                      children: <Widget>[
-                        // Lista de widgets
-                        Text(
-                          // Texto de bienvenida
-                          'Amanda', // Nombre de usuario
-                          style: TextStyle(
-                            // Estilo del texto
-                            fontSize: constraints.maxWidth *
-                                0.06, // Tamaño de la fuente
-                            fontWeight: FontWeight.bold, // Peso de la fuente
-                          ),
+              child: Column(
+                // Column es un widget que permite alinear los elementos en una columna
+                mainAxisAlignment: MainAxisAlignment
+                    .start, //esto alinea los elementos en la parte superior
+                crossAxisAlignment: CrossAxisAlignment
+                    .start, //esto alinea los elementos en la parte izquierda
+                children: <Widget>[
+                  // Lista de widgets
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Alineación principal entre los elementos
+                    children: <Widget>[
+                      // Lista de widgets
+                      Text(
+                        // Texto de bienvenida
+                        'Amanda', // Nombre de usuario
+                        style: TextStyle(
+                          // Estilo del texto
+                          fontSize: constraints.maxWidth *
+                              0.05, // Tamaño de la fuente reducido
+                          fontWeight: FontWeight.bold, // Peso de la fuente
                         ),
-                        CircleAvatar(
-                          // Avatar circular
-                          radius:
-                              constraints.maxWidth * 0.08, // Radio del avatar
-                          backgroundImage: AssetImage(
-                              'assets/amanda.jpg'), // Imagen de fondo del avatar
-                        ),
-                      ],
-                    ),
-                    Config.espacioMediano, // Espacio pequeño
-                    //Aqui hare la lista de categorias
-                    const Text(
-                      'Categorias',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
                       ),
+                      CircleAvatar(
+                        // Avatar circular
+                        radius: constraints.maxWidth *
+                            0.07, // Radio del avatar reducido
+                        backgroundImage: AssetImage(
+                            'assets/amanda.jpg'), // Imagen de fondo del avatar
+                      ),
+                    ],
+                  ),
+                  Config.espacioMediano, // Espacio mediano
+                  //Aqui hare la lista de categorias
+                  const Text(
+                    'Categorias',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Config.espacioPequeno, // Espacio pequeño
-                    //Aqui hare la lista de categorias
-                    SizedBox(
-                      height: constraints.maxHeight *
-                          0.2, // Ajustar el tamaño del SizedBox
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children:
-                            List<Widget>.generate(categorias.length, (index) {
-                          return Card(
-                            margin: const EdgeInsets.only(right: 20),
-                            color: Config.colorprimario,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                  ),
+                  Config.espacioPequeno, // Espacio pequeño
+                  //Aqui hare la lista de categorias
+                  SizedBox(
+                    height: constraints.maxHeight *
+                        0.15, // Ajustar el tamaño del SizedBox
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List<Widget>.generate(
+                        categorias.length,
+                        (index) {
+                          return Container(
+                            width: constraints.maxWidth *
+                                0.35, // Ajustar el ancho del contenedor
+                            margin: EdgeInsets.only(
+                                right: constraints.maxWidth * 0.04),
+                            child: Card(
+                              color: Config.colorprimario,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: constraints.maxWidth * 0.03,
+                                  vertical: constraints.maxHeight * 0.015,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Icon(
                                       categorias[index]["icono"],
                                       color: Colors.white,
-                                      size: constraints.maxWidth * 0.05,
+                                      size: constraints.maxWidth * 0.08,
                                     ),
+                                    SizedBox(
+                                        height: constraints.maxHeight * 0.008),
                                     Text(
                                       categorias[index]["nombre"],
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: constraints.maxWidth * 0.04,
+                                        fontSize: constraints.maxWidth * 0.035,
                                       ),
                                     ),
-                                  ]),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
-                        }),
+                        },
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Config.espacioPequeno, // Espacio pequeño
+                  const Text(
+                    'Citas de hoy',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Config.espacioPequeno, // Espacio pequeño
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        // Column es un widget que permite alinear los elementos en una columna
+                        mainAxisAlignment: MainAxisAlignment
+                            .start, //esto alinea los elementos en la parte superior
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, //esto alinea los elementos en la parte izquierda
+                        children: <Widget>[
+                          // Lista de widgets
+                          TarjetaCita(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
