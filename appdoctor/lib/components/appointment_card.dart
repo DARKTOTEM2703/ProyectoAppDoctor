@@ -1,22 +1,29 @@
+import 'package:appdoctor/components/Horario.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
+// Clase principal que representa la tarjeta de cita
 class TarjetaCita extends StatefulWidget {
   // Stateful widget sirve para crear widgets que pueden cambiar de estado
   const TarjetaCita(
       {super.key}); // Llamar al constructor de la clase padre correctamente
+
   @override // Anulación de la función createState
   State<TarjetaCita> createState() =>
       _EstadoTarjetaCita(); // Devuelve el estado de la tarjeta de cita
 }
 
+// Clase que maneja el estado de la tarjeta de cita
 class _EstadoTarjetaCita extends State<TarjetaCita> {
   // Estado de la tarjeta de cita
+
   @override
   Widget build(BuildContext context) {
     // Construcción de la tarjeta de cita
     Config.init(context); // Inicializa la configuración de la aplicación
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness ==
+        Brightness.dark; // Verifica si el modo oscuro está activado
+
     return Container(
       width: double.infinity, // Ancho de la tarjeta de cita
       decoration: BoxDecoration(
@@ -77,70 +84,46 @@ class _EstadoTarjetaCita extends State<TarjetaCita> {
                 );
               }),
               Config.espacioPequeno, // Espacio pequeño
-              Horario(), // Horario de la cita
+              const Horario(), // Horario de la cita
+              Config.espacioPequeno, // Espacio pequeño
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween, // Alineación de los botones
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // Color del botón
+                      ),
+                      child: const Text(
+                        'Cancelar Cita', // Texto del botón
+                        style:
+                            TextStyle(color: Colors.white), // Estilo del texto
+                      ),
+                      onPressed: () {}, // Acción al presionar el botón
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10, // Espacio entre los botones
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Color del botón
+                      ),
+                      child: const Text(
+                        'Completar Cita', // Texto del botón
+                        style:
+                            TextStyle(color: Colors.white), // Estilo del texto
+                      ),
+                      onPressed: () {}, // Acción al presionar el botón
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class Horario extends StatefulWidget {
-  // Stateful widget sirve para crear widgets que pueden cambiar de estado
-  const Horario(
-      {super.key}); // Llamar al constructor de la clase padre correctamente
-
-  @override // Anulación de la función createState
-  State<Horario> createState() =>
-      _EstadoHorario(); // Devuelve el estado del horario
-}
-
-class _EstadoHorario extends State<Horario> {
-  // Estado del horario
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        // BoxDecoration es una clase que permite decorar un contenedor
-        color: Colors.grey, // Color de fondo
-        borderRadius: BorderRadius.circular(10), // Bordes redondeados
-      ),
-      width: double.infinity, // Ancho del contenedor
-      padding: const EdgeInsets.all(20), // Padding de 20
-      child: Row(
-        children: const <Widget>[
-          Icon(
-            Icons.calendar_today,
-            color: Colors.white,
-            size: 15,
-          ), // Icono de calendario
-          SizedBox(
-            width: 10, // Espacio de 10
-          ), // SizedBox es un widget que permite agregar un espacio en blanco
-          Text('Lunes 12 de Julio', // Texto del día
-              style: TextStyle(
-                color: Colors.white, // Color blanco
-              )),
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            Icons.access_alarm,
-            color: Colors.white,
-            size: 17,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Flexible(
-              child: Text(
-            '2:00 PM',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          )),
-        ],
       ),
     );
   }
