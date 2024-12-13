@@ -62,6 +62,7 @@ flutter:
     - assets/amanda.jpg
     - assets/doctor_1.png
     - assets/Doctor_2.jpg
+    - assets/doctor_3.jpg
     # Agrega aquí otras imágenes si es necesario
 
   # An image asset can refer to one or more resolution-specific "variants", see
