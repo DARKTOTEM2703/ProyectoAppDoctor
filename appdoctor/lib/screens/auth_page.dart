@@ -18,7 +18,7 @@ class AuthPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           // Padding simétrico
           horizontal: 15, // Espacio horizontal de 15
-          vertical: 15, // Espacio vertical de 15),
+          vertical: 15, // Espacio vertical de 15
         ),
         child: SafeArea(
           child: SingleChildScrollView(
