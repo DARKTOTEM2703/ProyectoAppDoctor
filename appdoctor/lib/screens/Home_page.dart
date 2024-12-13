@@ -1,4 +1,5 @@
 import 'package:appdoctor/components/appointment_card.dart';
+import 'package:appdoctor/components/doctor_card.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -47,14 +48,15 @@ class _HomePageState extends State<HomePage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          // Devuelve la estructura de la página de inicio
-          body: Padding(
-            // Padding es un widget que permite agregar relleno a un widget hijo
-            padding: EdgeInsets.symmetric(
-              horizontal: constraints.maxWidth * 0.04,
-              vertical: constraints.maxHeight * 0.02,
-            ),
-            child: SafeArea(
+            // Devuelve la estructura de la página de inicio
+            body: Padding(
+          // Padding es un widget que permite agregar relleno a un widget hijo
+          padding: EdgeInsets.symmetric(
+            horizontal: constraints.maxWidth * 0.04,
+            vertical: constraints.maxHeight * 0.02,
+          ),
+          child: SafeArea(
+            child: SingleChildScrollView(
               // SafeArea es un widget que permite evitar que los elementos se superpongan en el área segura
               child: Column(
                 // Column es un widget que permite alinear los elementos en una columna
@@ -154,26 +156,36 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Config.espacioPequeno, // Espacio pequeño
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        // Column es un widget que permite alinear los elementos en una columna
-                        mainAxisAlignment: MainAxisAlignment
-                            .start, //esto alinea los elementos en la parte superior
-                        crossAxisAlignment: CrossAxisAlignment
-                            .start, //esto alinea los elementos en la parte izquierda
-                        children: <Widget>[
-                          // Lista de widgets
-                          TarjetaCita(),
-                        ],
+                  Column(
+                    // Column es un widget que permite alinear los elementos en una columna
+                    mainAxisAlignment: MainAxisAlignment
+                        .start, //esto alinea los elementos en la parte superior
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, //esto alinea los elementos en la parte izquierda
+                    children: <Widget>[
+                      // Lista de widgets
+                      TarjetaCita(),
+                      Config.espacioPequeno, // Espacio pequeño
+                      const Text(
+                        'Lista de doctores',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                      Config.espacioPequeno, // Espacio pequeño
+                      Column(
+                        children: List.generate(10, (index) {
+                          return TarjetaDoctor();
+                        }),
+                      )
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-        );
+        ));
       },
     );
   }
