@@ -184,13 +184,33 @@ class DoctorInfo extends StatelessWidget {
 
 @override
 Widget build(BuildContext context) {
+  Config.init(context);
   return Row(
     children: <Widget>[
       Expanded(
         child: Container(
           decoration: BoxDecoration(
             color: Config.colorprimario,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 30,
+            horizontal: 15,
+          ),
+          child: Column(
+            children: <Widget>[
+              Text(
+                'pacientes',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
           ),
         ),
       ),
