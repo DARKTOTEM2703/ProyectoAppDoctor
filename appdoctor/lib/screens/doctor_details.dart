@@ -14,6 +14,7 @@ class DoctorDetails extends StatefulWidget {
 
 class _DoctorDetails extends State<DoctorDetails> {
   bool isFavourite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,20 +23,30 @@ class _DoctorDetails extends State<DoctorDetails> {
         icon: const Icon(Icons.arrow_back_ios),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: Icon(
-                isFavourite ? Icons.favorite_rounded : Icons.favorite_outline,
-                color: Colors.red,
-              ))
+            icon: Icon(
+              isFavourite ? Icons.favorite_rounded : Icons.favorite_outline,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              setState(() {
+                isFavourite = !isFavourite;
+              });
+            },
+          ),
         ],
       ),
       body: SafeArea(
+        child: SingleChildScrollView(
+          // Asegúrate de que el contenido sea desplazable si es necesario
           child: Column(
-        children: <Widget>[
-          //aqui construimos la tarjeta del doctor
-          InformacionDoctor(),
-        ],
-      )),
+            children: <Widget>[
+              // aquí construimos la tarjeta del doctor
+              InformacionDoctor(),
+              DetailBody(), // Asegúrate de incluir el cuerpo del detalle
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -49,51 +60,53 @@ class InformacionDoctor extends StatelessWidget {
   Widget build(BuildContext context) {
     Config.init(context);
     return Container(
-        width: double.infinity,
-        child: Column(
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 60,
-              backgroundImage: AssetImage('assets/Doctor_2.jpg'),
-              backgroundColor: Colors.white,
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          const CircleAvatar(
+            radius: 60,
+            backgroundImage: AssetImage('assets/Doctor_2.jpg'),
+            backgroundColor: Colors.white,
+          ),
+          Config.espacioMediano,
+          Text(
+            'Dr. Juan Pérez',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
-            Config.espacioMediano,
-            Text(
-              'Dr. Juan Pérez',
+          ),
+          Config.espacioPequeno,
+          SizedBox(
+            width: Config.anchoDePantalla! * 0.75,
+            child: const Text(
+              'Especialista en medicina, egresado de la UADY, con más de 10 años de experiencia en el campo de la dermatología.',
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
-            Config.espacioPequeno,
-            SizedBox(
-              width: Config.anchoDePantalla! * 0.75,
-              child: const Text(
-                'Especialista en medicina, egresado de la  UADY, con más de 10 años de experiencia en el campo de la dermatologia.',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
-                softWrap: true,
-                textAlign: TextAlign.center,
+                fontSize: 15,
+                color: Colors.grey,
               ),
+              softWrap: true,
+              textAlign: TextAlign.center,
             ),
-            Config.espacioPequeno,
-            SizedBox(
-              width: Config.anchoDePantalla! * 0.75,
-              child: const Text(
-                'Hospital general de Mérida',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                softWrap: true,
-                textAlign: TextAlign.center,
+          ),
+          Config.espacioPequeno,
+          SizedBox(
+            width: Config.anchoDePantalla! * 0.75,
+            child: const Text(
+              'Hospital general de Mérida',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
+              softWrap: true,
+              textAlign: TextAlign.center,
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -128,40 +141,16 @@ class DoctorInfo extends StatelessWidget {
     Config.init(context);
     return Row(
       children: <Widget>[
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Config.colorprimario,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 30,
-              horizontal: 15,
-            ),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'pacientes',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '109',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w800,
-                  ),
-                )
-              ],
-            ),
-          ),
+        InfoCard(
+          label: 'Pacientes',
+          value: '109',
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        InfoCard(
+          label: 'Experiencia',
+          value: '10 años',
         ),
       ],
     );
@@ -169,10 +158,48 @@ class DoctorInfo extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  const InfoCard({super.key});
+  const InfoCard({super.key, required this.label, required this.value});
+
+  final String label; // etiqueta
+  final String value; // valor de la etiqueta
+
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Container();
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Config.colorprimario,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 30,
+          horizontal: 15,
+        ),
+        child: Column(
+          children: <Widget>[
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
