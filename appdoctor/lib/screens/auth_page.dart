@@ -18,128 +18,112 @@ class AuthPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           // Padding simétrico
           horizontal: 15, // Espacio horizontal de 15
-          vertical: 15, // Espacio vertical de 15),
+          vertical: 15, // Espacio vertical de 15
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight,
-                        ),
-                        child: Center(
-                          // Añadido Center para centrar los elementos
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment
-                                .center, // Centrar verticalmente
-                            crossAxisAlignment: CrossAxisAlignment
-                                .center, // Centrar horizontalmente
-                            children: <Widget>[
-                              Text(
-                                APPText.obtenerTexto('es',
-                                    'welcome'), // Obtiene el texto de bienvenida
-                                style: const TextStyle(
-                                  fontSize: 36, // Tamaño de la fuente de 30
-                                  fontWeight:
-                                      FontWeight.bold, // Fuente en negrita
-                                ), // Estilo del texto
-                              ), // Texto de bienvenida
-                              Config.espacioPequeno, // Espacio pequeño
-                              Text(
-                                APPText.obtenerTexto('es',
-                                    'signIn'), // Obtiene el texto de inicio de sesión
-                                style: const TextStyle(
-                                  fontSize: 16, // Tamaño de la fuente de 24
-                                  fontWeight:
-                                      FontWeight.bold, // Fuente en negrita
-                                ),
-                              ), // Texto de inicio de sesión
-                              Config.espacioPequeno, // Espacio pequeño
-                              const Formulariodeiniciodesecion(), // Formulario de inicio de sesión
-                              Config.espacioPequeno, // Espacio pequeño
-                              Center(
-                                child: TextButton(
-                                  onPressed: () {
-                                    // Acción al presionar el botón
-                                  },
-                                  child: Text(
-                                    APPText.obtenerTexto('es',
-                                        'forgot-password'), // Obtiene el texto de olvidó la contraseña
-                                    style: const TextStyle(
-                                      fontSize: 16, // Tamaño de la fuente de 16
-                                      fontWeight:
-                                          FontWeight.bold, // Fuente en negrita
-                                      color: Colors
-                                          .black, // Establece el color negro
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Config.espacioPequeno,
-                              Boton(
-                                tittle: 'Iniciar sesión',
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed('main');
-                                },
-                                disabled: false,
-                              ),
-                              Config
-                                  .espacioPequeno, // Añadir un Spacer para empujar el contenido hacia abajo
-                              Center(
-                                child: Text(
-                                  APPText.obtenerTexto('es', 'social-login'),
-                                  style: TextStyle(
-                                    fontSize: 16, // Tamaño de la fuente de 16
-                                    fontWeight:
-                                        FontWeight.bold, // Fuente en negrita
-                                    color: Colors.grey
-                                        .shade500, // Establece el color negro
-                                  ),
-                                ),
-                              ),
-                              Config.espacioPequeno,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .center, // Centrar horizontalmente
-                                children: const <Widget>[
-                                  SocialButton(social: 'Google'),
-                                ],
-                              ),
-                              Config.espacioPequeno,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    APPText.obtenerTexto('es', 'singUp_text'),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.grey.shade500),
-                                  ),
-                                  Text(
-                                    'inicia sesion',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              child: Center(
+                // Añadido Center para centrar los elementos
+                child: Column(
+                  mainAxisAlignment:
+                      MainAxisAlignment.center, // Centrar verticalmente
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center, // Centrar horizontalmente
+                  children: <Widget>[
+                    Text(
+                      APPText.obtenerTexto(
+                          'es', 'welcome'), // Obtiene el texto de bienvenida
+                      style: const TextStyle(
+                        fontSize: 36, // Tamaño de la fuente de 30
+                        fontWeight: FontWeight.bold, // Fuente en negrita
+                      ), // Estilo del texto
+                    ), // Texto de bienvenida
+                    Config.espacioPequeno, // Espacio pequeño
+                    Text(
+                      APPText.obtenerTexto('es',
+                          'signIn'), // Obtiene el texto de inicio de sesión
+                      style: const TextStyle(
+                        fontSize: 16, // Tamaño de la fuente de 24
+                        fontWeight: FontWeight.bold, // Fuente en negrita
+                      ),
+                    ), // Texto de inicio de sesión
+                    Config.espacioPequeno, // Espacio pequeño
+                    const Formulariodeiniciodesecion(), // Formulario de inicio de sesión
+                    Config.espacioPequeno, // Espacio pequeño
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          // Acción al presionar el botón
+                        },
+                        child: Text(
+                          APPText.obtenerTexto('es',
+                              'forgot-password'), // Obtiene el texto de olvidó la contraseña
+                          style: const TextStyle(
+                            fontSize: 16, // Tamaño de la fuente de 16
+                            fontWeight: FontWeight.bold, // Fuente en negrita
+                            color: Colors.black, // Establece el color negro
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Config.espacioPequeno,
+                    Boton(
+                      tittle: 'Iniciar sesión',
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('main');
+                      },
+                      disabled: false,
+                    ),
+                    Config
+                        .espacioPequeno, // Añadir un Spacer para empujar el contenido hacia abajo
+                    Center(
+                      child: Text(
+                        APPText.obtenerTexto('es', 'social-login'),
+                        style: TextStyle(
+                          fontSize: 16, // Tamaño de la fuente de 16
+                          fontWeight: FontWeight.bold, // Fuente en negrita
+                          color:
+                              Colors.grey.shade500, // Establece el color negro
+                        ),
+                      ),
+                    ),
+                    Config.espacioPequeno,
+                    Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Centrar horizontalmente
+                      children: const <Widget>[
+                        SocialButton(social: 'Google'),
+                      ],
+                    ),
+                    Config.espacioPequeno,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          APPText.obtenerTexto('es', 'singUp_text'),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey.shade500),
+                        ),
+                        Text(
+                          'inicia sesion',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),
