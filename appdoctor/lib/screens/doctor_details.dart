@@ -58,7 +58,142 @@ class InformacionDoctor extends StatelessWidget {
               backgroundColor: Colors.white,
             ),
             Config.espacioMediano,
+            Text(
+              'Dr. Juan Pérez',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            Config.espacioPequeno,
+            SizedBox(
+              width: Config.anchoDePantalla! * 0.75,
+              child: const Text(
+                'Especialista en medicina, egresado de la  UADY, con más de 10 años de experiencia en el campo de la dermatologia.',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey,
+                ),
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Config.espacioPequeno,
+            SizedBox(
+              width: Config.anchoDePantalla! * 0.75,
+              child: const Text(
+                'Hospital general de Mérida',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
           ],
         ));
   }
+}
+
+class DetailBody extends StatelessWidget {
+  const DetailBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Config.espacioPequeno,
+            const Text(
+              'Información del Doctor',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Dr. Juan Pérez',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Especialista en medicina, egresado de la  UADY, con más de 10 años de experiencia en el campo de la dermatologia.',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Hospital general de Mérida',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Calle 60 # 345, Mérida, Yucatán',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Teléfono: 999-123-4567',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Correo:',
+            )
+          ],
+        ));
+  }
+}
+
+class DoctorInfo extends StatelessWidget {
+  const DoctorInfo({
+    super.key,
+  });
+}
+
+@override
+Widget build(BuildContext context) {
+  return Row(
+    children: <Widget>[
+      Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Config.colorprimario,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    ],
+  );
 }
