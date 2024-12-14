@@ -68,6 +68,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             )
           : null,
       //si la accion es diferente de nulo entonces se muestra
+      actions: widget.actions,
     ); // Título de la barra de aplicaciones
   }
 }
