@@ -105,74 +105,16 @@ class DetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.only(bottom: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Config.espacioPequeno,
-            const Text(
-              'Información del Doctor',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Dr. Juan Pérez',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Especialista en medicina, egresado de la  UADY, con más de 10 años de experiencia en el campo de la dermatologia.',
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Hospital general de Mérida',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Calle 60 # 345, Mérida, Yucatán',
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Teléfono: 999-123-4567',
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Correo:',
-            )
-          ],
-        ));
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Config.espacioPequeno,
+          DoctorInfo(),
+        ],
+      ),
+    );
   }
 }
 
@@ -180,40 +122,48 @@ class DoctorInfo extends StatelessWidget {
   const DoctorInfo({
     super.key,
   });
-}
 
-@override
-Widget build(BuildContext context) {
-  Config.init(context);
-  return Row(
-    children: <Widget>[
-      Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Config.colorprimario,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 30,
-            horizontal: 15,
-          ),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'pacientes',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+  @override
+  Widget build(BuildContext context) {
+    Config.init(context);
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Config.colorprimario,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.symmetric(
+              vertical: 30,
+              horizontal: 15,
+            ),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'pacientes',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '109',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
