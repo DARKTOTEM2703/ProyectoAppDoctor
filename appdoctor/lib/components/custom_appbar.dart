@@ -1,3 +1,4 @@
+import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
 // Define una barra de aplicaciones personalizada que es un StatefulWidget
@@ -45,7 +46,28 @@ class _CustomAppBarState extends State<CustomAppBar> {
           ),
       //La sintaxis !=null? significa que si el valor es
       //diferente de nulo entonces se muestra el icono
-      leading: widget.icon != null ? Container() : null,
+      leading: widget.icon != null
+          ? Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: Config.colorprimario,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  if (widget.route != null) {
+                    Navigator.pushNamed(context, widget.route!);
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                },
+                icon: widget.icon!,
+                iconSize: 16,
+                color: Colors.white,
+              ),
+            )
+          : null,
+      //si la accion es diferente de nulo entonces se muestra
     ); // Título de la barra de aplicaciones
   }
 }

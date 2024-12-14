@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appdoctor/components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
   const DoctorDetails({
@@ -14,8 +16,9 @@ class _DoctorDetails extends State<DoctorDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Doctor Details'),
+      appBar: CustomAppBar(
+        appTitle: 'Doctor Details',
+        icon: const Icon(Icons.arrow_back_ios),
       ),
     );
   }

@@ -1,16 +1,15 @@
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
-class TarjetaDoctor extends StatefulWidget {
+//
+
+class TarjetaDoctor extends StatelessWidget {
   const TarjetaDoctor({
     super.key,
+    required this.route,
   });
+  final String route;
 
-  @override
-  State<TarjetaDoctor> createState() => _TarjetaDoctorState();
-}
-
-class _TarjetaDoctorState extends State<TarjetaDoctor> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -67,7 +66,10 @@ class _TarjetaDoctorState extends State<TarjetaDoctor> {
             ],
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          //esto redirige a la pantalla de detalles del doctor
+          Navigator.of(context).pushNamed(route);
+        },
       ),
     );
   }

@@ -176,7 +176,9 @@ class _HomePageState extends State<HomePage> {
                       Config.espacioPequeno, // Espacio pequeño
                       Column(
                         children: List.generate(10, (index) {
-                          return TarjetaDoctor();
+                          return const TarjetaDoctor(
+                            route: 'doc_details',
+                          );
                         }),
                       )
                     ],

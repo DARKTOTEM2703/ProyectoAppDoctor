@@ -1,5 +1,6 @@
 import 'package:appdoctor/main_layout.dart';
 import 'package:appdoctor/screens/auth_Page.dart';
+import 'package:appdoctor/screens/doctor_details.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -67,9 +68,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Ruta inicial
       routes: {
-        '/': (context) => AuthPage(),
+        '/': (context) => const AuthPage(),
         'main': (context) =>
-            MainLayout(), // Asegúrate de que esta ruta esté definida
+            const MainLayout(), // Asegúrate de que esta ruta esté definida
+        'doc_details': (context) => const DoctorDetails(),
       },
       //   home: const MyHomePage(title: 'Doctor App'), // Página de inicio
     );
