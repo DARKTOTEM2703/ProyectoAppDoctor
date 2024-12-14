@@ -18,7 +18,7 @@ class _DoctorDetails extends State<DoctorDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        appTitle: 'Doctor Details',
+        appTitle: 'Información del Doctor',
         icon: const Icon(Icons.arrow_back_ios),
         actions: [
           IconButton(
