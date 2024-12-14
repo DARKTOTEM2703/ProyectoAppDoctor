@@ -119,12 +119,25 @@ class DetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Config.espacioPequeno,
           DoctorInfo(),
+          Config.espacioGrande,
+          const Text(
+            'Acerca del Doctor',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          Config.espacioPequeno,
+          Text(
+            'Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes. El Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes.',
+          )
         ],
       ),
     );
@@ -146,11 +159,18 @@ class DoctorInfo extends StatelessWidget {
           value: '109',
         ),
         SizedBox(
-          width: 10,
+          width: 15,
         ),
         InfoCard(
           label: 'Experiencia',
           value: '10 años',
+        ),
+        SizedBox(
+          width: 15,
+        ),
+        InfoCard(
+          label: 'Calificación',
+          value: '4.5',
         ),
       ],
     );
