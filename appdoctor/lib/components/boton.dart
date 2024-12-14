@@ -8,11 +8,11 @@ class Boton extends StatelessWidget {
   final bool disabled; // Estado del botón
 
   const Boton({
-    Key? key, // Llave del widget
+    super.key, // Llave del widget
     required this.tittle, // Título del botón
     required this.onPressed, // Función que se ejecuta al presionar el botón
     required this.disabled, // Estado del botón
-  }) : super(key: key); // Llama al constructor de la clase padre
+  }); // Llama al constructor de la clase padre
 
   @override // Anulación del método build
   Widget build(BuildContext context) {
