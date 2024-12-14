@@ -167,3 +167,12 @@ class DoctorInfo extends StatelessWidget {
     );
   }
 }
+
+class InfoCard extends StatelessWidget {
+  const InfoCard({super.key});
+  @override
+  Widget build(BuildContext context) {
+    Config.init(context);
+    return Container();
+  }
+}
