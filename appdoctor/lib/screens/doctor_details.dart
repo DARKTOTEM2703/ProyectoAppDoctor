@@ -44,12 +44,17 @@ class _DoctorDetails extends State<DoctorDetails> {
               InformacionDoctor(),
               DetailBody(), // Asegúrate de incluir el cuerpo del detalle
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(
+                    20), // EdgeInsets.all(20) es un padding de 20
                 child: Boton(
-                    width: double.infinity,
-                    tittle: 'Libro de citas',
-                    onPressed: () {},
-                    disabled: false),
+                    width: double
+                        .infinity, // aqui usamos double.infinity para que el boton ocupe todo el ancho
+                    tittle:
+                        'Libro de citas', // aqui ponemos el texto que llevara el boton
+                    onPressed:
+                        () {}, // aqui ponemos la accion que realizara el boton
+                    disabled:
+                        false), // aqui ponemos si el boton esta deshabilitado o no
               ),
             ],
           ),
