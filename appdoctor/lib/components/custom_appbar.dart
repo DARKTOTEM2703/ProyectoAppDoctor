@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // Define una barra de aplicaciones personalizada que es un StatefulWidget
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   // Constructor que acepta un título opcional para la aplicación
-  CustomAppBar({Key? key, this.appTitle, this.route, this.icon, this.actions})
-      : super(key: key);
+  const CustomAppBar(
+      {super.key, this.appTitle, this.route, this.icon, this.actions});
 
   // Ruta opcional para la navegación
   final String? route;

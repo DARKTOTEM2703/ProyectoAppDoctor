@@ -1,8 +1,6 @@
-import 'package:appdoctor/components/Horario.dart';
-
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart'; // Importa el paquete de material de flutter
+// Importa el paquete de material de flutter
 
 class AppointmentPage extends StatefulWidget {
   //Stateful widget sirve para crear widgets que pueden cambiar de estado

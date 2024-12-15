@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/config.dart';
-
 class Boton extends StatelessWidget {
   final String tittle; // Título del botón
   final Function() onPressed; // Función que se ejecuta al presionar el botón

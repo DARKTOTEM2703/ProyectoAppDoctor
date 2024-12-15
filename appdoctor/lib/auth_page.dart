@@ -7,9 +7,8 @@ import '../utils/config.dart'; // Importa el archivo config.dart
 // Definición de un StatefulWidget llamado AuthPage que muestra la página de autenticación
 class AuthPage extends StatefulWidget {
   // Clase AuthPage que extiende de StatefulWidget
-  const AuthPage({Key? key})
-      : super(
-            key: key); // Llamar al constructor de la clase padre correctamente
+  const AuthPage(
+      {super.key}); // Llamar al constructor de la clase padre correctamente
 
   @override
   State<AuthPage> createState() =>
