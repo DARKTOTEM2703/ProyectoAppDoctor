@@ -14,6 +14,7 @@ class DoctorDetails extends StatefulWidget {
 
 class _DoctorDetails extends State<DoctorDetails> {
   bool isFavourite = false;
+  bool isBooked = false; // Nueva variable para el estado del botón
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +47,27 @@ class _DoctorDetails extends State<DoctorDetails> {
               Padding(
                 padding: const EdgeInsets.all(
                     20), // EdgeInsets.all(20) es un padding de 20
-                child: Boton(
-                    width: double
-                        .infinity, // aqui usamos double.infinity para que el boton ocupe todo el ancho
-                    tittle:
-                        'Libro de citas', // aqui ponemos el texto que llevara el boton
-                    onPressed:
-                        () {}, // aqui ponemos la accion que realizara el boton
-                    disabled:
-                        false), // aqui ponemos si el boton esta deshabilitado o no
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isBooked = !isBooked;
+                      });
+                    },
+                    splashColor: Colors.black87, // Color más oscuro al pulsar
+                    child: Boton(
+                      width: double.infinity,
+                      tittle: 'Libro de citas',
+                      onPressed: () {
+                        setState(() {
+                          isBooked = !isBooked;
+                        });
+                      },
+                      disabled: false,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

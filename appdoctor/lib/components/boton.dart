@@ -26,7 +26,8 @@ class Boton extends StatelessWidget {
             width: width, // Ajusta el ancho del botón según la variable width
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Config.colorprimario, // Color de fondo
+                backgroundColor:
+                    const Color.fromARGB(255, 57, 224, 143), // Color de fondo
                 foregroundColor: Colors.white, // Color del texto
               ), // Botón elevado
               onPressed: disabled
