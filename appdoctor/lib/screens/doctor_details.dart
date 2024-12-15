@@ -60,6 +60,7 @@ class _DoctorDetails extends State<DoctorDetails> {
                       width: double.infinity,
                       tittle: 'Libro de citas',
                       onPressed: () {
+                        Navigator.of(context).pushNamed('booking_page');
                         setState(() {
                           isBooked = !isBooked;
                         });
