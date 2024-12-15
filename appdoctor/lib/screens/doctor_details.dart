@@ -1,6 +1,6 @@
+import 'package:appdoctor/components/boton.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appdoctor/components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
@@ -43,6 +43,14 @@ class _DoctorDetails extends State<DoctorDetails> {
               // aquí construimos la tarjeta del doctor
               InformacionDoctor(),
               DetailBody(), // Asegúrate de incluir el cuerpo del detalle
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Boton(
+                    width: double.infinity,
+                    tittle: 'Libro de citas',
+                    onPressed: () {},
+                    disabled: false),
+              ),
             ],
           ),
         ),
@@ -59,7 +67,7 @@ class InformacionDoctor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         children: <Widget>[
@@ -118,26 +126,38 @@ class DetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.all(20), //Aqui pongo el padding de 20
+      margin: const EdgeInsets.only(bottom: 30), //Aqui pongo el margen de 30
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment
+            .stretch, //CrossAxisAlignment.stretch asegura que los elementos se expandan horizontalmente
         children: <Widget>[
           Config.espacioPequeno,
           DoctorInfo(),
-          Config.espacioGrande,
+          Config.espacioMediano,
           const Text(
             'Acerca del Doctor',
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+              fontSize: 20, // aqui ponemos el tamaño de la letra
+              fontWeight: FontWeight
+                  .bold, //Aqui pongo el grosor de la letra en este caso en negrita
+              color: Colors
+                  .black, //Aqui pongo el color que quiero que lleve el texto
             ),
           ),
-          Config.espacioPequeno,
+          Config
+              .espacioPequeno, //Aqui extraigo la clase espacioPequeno desde config.dart
           Text(
             'Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes. El Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes.',
-          )
+            style: TextStyle(
+              height: 1.5, //Aqui ponemos el espaciado entre lineas
+              fontWeight: FontWeight.w500, // aqui ponemos el grosor de la letra
+            ),
+            softWrap:
+                true, //Aqui ponemos que se ajuste al tamaño del contenedor
+            textAlign:
+                TextAlign.justify, //Aqui ponemos que se justifique el texto
+          ),
         ],
       ),
     );

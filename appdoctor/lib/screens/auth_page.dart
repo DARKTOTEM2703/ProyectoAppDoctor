@@ -72,6 +72,7 @@ class AuthPage extends StatelessWidget {
                     ),
                     Config.espacioPequeno,
                     Boton(
+                      width: MediaQuery.of(context).size.width * 0.8,
                       tittle: 'Iniciar sesión',
                       onPressed: () {
                         Navigator.of(context).pushNamed('main');

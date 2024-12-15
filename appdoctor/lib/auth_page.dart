@@ -81,6 +81,8 @@ class _AuthPageState extends State<AuthPage> {
                   Config.espacioPequeno,
                   Center(
                     child: Boton(
+                      width: MediaQuery.of(context).size.width *
+                          0.8, // Asigna un valor adecuado a width
                       tittle: 'Iniciar sesión',
                       onPressed: () {},
                       disabled: false,
