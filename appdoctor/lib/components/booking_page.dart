@@ -39,14 +39,6 @@ class _BookingPageState extends State<BookingPage> {
                 _buildCalendar(), // Llamar al método para construir el calendario
                 const SizedBox(
                     height: 20), // Espaciado adicional si es necesario
-                const Text(
-                  'Selecciona tu horario de consulta',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                // Espaciado adicional si es necesario
               ],
             ),
           ),
