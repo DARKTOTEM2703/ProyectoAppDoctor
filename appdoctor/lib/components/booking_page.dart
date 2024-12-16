@@ -42,14 +42,73 @@ class _BookingPageState extends State<BookingPage> {
                 const Text(
                   'Selecciona tu horario de consulta',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // Espaciado adicional si es necesario
+                Config.espacioPequeno, // Espaciado pequeño
               ],
             ),
           ),
+          _isWeekend
+              ? SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 30),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Lo siento, no se pueden hacer citas los fines de semana,porfavor selecciona otra fecha',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                )
+              : SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        onTap: () {},
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: _currentIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                            color: _currentIndex == index
+                                ? Config.colorprimario
+                                : null,
+                          ),
+                          child: Center(
+                            // Envolver el texto en un widget Center
+                            child: Text(
+                              // Aqui vamos a mostrar la horael intervalo de 9:00 AM a 6:00 PM
+                              '${index + 9 > 12 ? (index - 3) : (index + 9)}:00 ${index + 9 >= 12 ? "PM" : "AM"}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: _currentIndex == index
+                                    ? Colors.white
+                                    : null,
+                              ),
+                              textAlign: TextAlign
+                                  .center, // Añadir esta línea para centrar el texto
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: 9,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 2,
+                  ),
+                ),
         ],
       ),
     );
