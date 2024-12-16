@@ -2,6 +2,7 @@ import 'package:appdoctor/components/booking_page.dart';
 import 'package:appdoctor/main_layout.dart';
 import 'package:appdoctor/screens/auth_page.dart'; // Corregido el nombre del archivo importado
 import 'package:appdoctor/screens/doctor_details.dart';
+import 'package:appdoctor/screens/success_booking.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
             const MainLayout(), // Asegúrate de que esta ruta esté definida
         'doc_details': (context) => const DoctorDetails(),
         'booking_page': (context) => BookingPage(),
+        'success_booking': (context) => AppointmentBooked(),
       },
       //   home: const MyHomePage(title: 'Doctor App'), // Página de inicio
     );

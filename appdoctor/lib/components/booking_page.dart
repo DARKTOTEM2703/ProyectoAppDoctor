@@ -133,7 +133,7 @@ class _BookingPageState extends State<BookingPage> {
                 isEnabled: _timeSelected && _dateSelected,
                 onPressed: () {
                   // Acción para crear cita
-                  print('Cita creada correctamente.');
+                  Navigator.of(context).pushNamed('success_booking');
                 },
               ),
             ),
