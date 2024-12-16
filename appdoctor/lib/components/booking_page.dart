@@ -70,7 +70,12 @@ class _BookingPageState extends State<BookingPage> {
                     (context, index) {
                       return InkWell(
                         splashColor: Colors.transparent,
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            _currentIndex = index;
+                            _timeSelected = true;
+                          });
+                        },
                         child: Container(
                           margin: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
