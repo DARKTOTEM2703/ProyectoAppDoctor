@@ -7,7 +7,7 @@ class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
 
   @override
-  State<BookingPage> createState() => _BookingPageState();
+  _BookingPageState createState() => _BookingPageState();
 }
 
 class _BookingPageState extends State<BookingPage> {
@@ -20,7 +20,14 @@ class _BookingPageState extends State<BookingPage> {
   bool _dateSelected = false;
   bool _timeSelected = false;
 
-  static DateTime lastDay = DateTime(2026, 12, 31); // Fecha límite
+  // Ajustamos firstDay al inicio del día actual
+  static final DateTime firstDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
+  static final DateTime lastDay = DateTime(2026, 12, 31); // Fecha límite
   static const double rowHeight = 48.0; // Altura de filas del calendario
 
   @override
@@ -37,8 +44,7 @@ class _BookingPageState extends State<BookingPage> {
             child: Column(
               children: <Widget>[
                 _buildCalendar(), // Llamar al método para construir el calendario
-                const SizedBox(
-                    height: 20), // Espaciado adicional si es necesario
+                const SizedBox(height: 20),
                 const Text(
                   'Selecciona tu horario de consulta',
                   style: TextStyle(
@@ -57,7 +63,7 @@ class _BookingPageState extends State<BookingPage> {
                         horizontal: 10, vertical: 30),
                     alignment: Alignment.center,
                     child: const Text(
-                      'Lo siento, no se pueden hacer citas los fines de semana,porfavor selecciona otra fecha',
+                      'Lo siento, no se pueden hacer citas los fines de semana, por favor selecciona otra fecha',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -68,12 +74,21 @@ class _BookingPageState extends State<BookingPage> {
               : SliverGrid(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
+                      final hour = index + 9; // Calcula la hora inicial (9 AM)
+                      final displayHour = hour > 12 ? hour - 12 : hour;
+                      final period = hour >= 12 ? "PM" : "AM";
+
                       return InkWell(
                         splashColor: Colors.transparent,
                         onTap: () {
                           setState(() {
-                            _currentIndex = index;
-                            _timeSelected = true;
+                            if (_currentIndex == index) {
+                              _currentIndex = null;
+                              _timeSelected = false;
+                            } else {
+                              _currentIndex = index;
+                              _timeSelected = true;
+                            }
                           });
                         },
                         child: Container(
@@ -90,30 +105,39 @@ class _BookingPageState extends State<BookingPage> {
                                 : null,
                           ),
                           child: Center(
-                            // Envolver el texto en un widget Center
                             child: Text(
-                              // Aqui vamos a mostrar la horael intervalo de 9:00 AM a 6:00 PM
-                              '${index + 9 > 12 ? (index - 3) : (index + 9)}:00 ${index + 9 >= 12 ? "PM" : "AM"}',
+                              '$displayHour:00 $period',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: _currentIndex == index
                                     ? Colors.white
                                     : null,
                               ),
-                              textAlign: TextAlign
-                                  .center, // Añadir esta línea para centrar el texto
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
                       );
                     },
-                    childCount: 9,
+                    childCount: 8, // Última cita a las 4 PM
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 2,
+                    crossAxisCount: 4,
+                    childAspectRatio: 1.5,
                   ),
                 ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
+              child: BookingButton(
+                isEnabled: _timeSelected && _dateSelected,
+                onPressed: () {
+                  // Acción para crear cita
+                  print('Cita creada correctamente.');
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -123,14 +147,18 @@ class _BookingPageState extends State<BookingPage> {
   Widget _buildCalendar() {
     return TableCalendar(
       focusedDay: _focusedDay,
-      firstDay: DateTime.now(),
+      firstDay: firstDay,
       lastDay: lastDay,
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: rowHeight,
-      calendarStyle: const CalendarStyle(
+      calendarStyle: CalendarStyle(
         todayDecoration: BoxDecoration(
           color: Config.colorprimario,
+          shape: BoxShape.circle,
+        ),
+        selectedDecoration: BoxDecoration(
+          color: Colors.blueAccent,
           shape: BoxShape.circle,
         ),
       ),
@@ -148,17 +176,59 @@ class _BookingPageState extends State<BookingPage> {
 
   // Método manejador de selección de día
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (selectedDay.isBefore(firstDay) || selectedDay.isAfter(lastDay)) {
+      // Verificar si la fecha seleccionada está dentro del rango válido
+      return;
+    }
     setState(() {
       _currentDay = selectedDay;
       _focusedDay = focusedDay;
-      _dateSelected = true;
       _isWeekend = selectedDay.weekday == DateTime.saturday ||
           selectedDay.weekday == DateTime.sunday;
 
       if (_isWeekend) {
         _timeSelected = false;
         _currentIndex = null;
+        _dateSelected = false;
+      } else {
+        _dateSelected = true;
       }
     });
+  }
+}
+
+class BookingButton extends StatelessWidget {
+  final bool isEnabled;
+  final VoidCallback? onPressed;
+
+  const BookingButton({
+    required this.isEnabled,
+    required this.onPressed,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: isEnabled ? onPressed : null,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isEnabled ? Config.colorprimario : Colors.grey,
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        child: const Text(
+          'Crear cita',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
