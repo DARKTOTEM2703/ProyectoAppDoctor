@@ -27,6 +27,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'type', // aqui al agregar type podemos definir si es doctor o paciente
         'email',
         'password',
     ];
@@ -64,4 +65,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-}
+
+
+    //Aqui definimos la relacion uno a uno con la tabla user_details
+    public function doctor()
+    {
+        //Aqui decimos que un usuario tiene relacion con un doctor
+        return $this->hasOne(Doctor::class, 'doctor_id');
+        //aqui retornamos la relacion uno a uno con la tabla doctor
+        //$this es para decir que se relaciona con el modelo User
+        //hasOne es para decir que tiene un registro en la tabla doctor
+        //Doctor::class es para decir que se relaciona con la clase Doctor
+        //'doctor_id' es para decir que se relaciona con el campo doctor_id
+    }
+
+        public function user_details()
+        {
+            //Aqui decimos que un usuario tiene relacion con un user_details
+            return $this->hasOne(UserDetails::class, 'user_id');
+            //aqui retornamos la relacion uno a uno con la tabla user_details
+            //$this es para decir que se relaciona con el modelo User
+            //hasOne es para decir que tiene un registro en la tabla user_details
+            //UserDetails::class es para decir que se relaciona con la clase UserDetails
+            //'user_id' es para decir que se relaciona con el campo user_id
+        }
+    }

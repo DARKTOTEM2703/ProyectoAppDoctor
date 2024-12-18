@@ -30,7 +30,7 @@ return new class extends Migration
             // Aqui definimos el estado del doctor
             $table->unsignedInteger('status') -> nullable(); // nullable es para que pueda ser nulo
             //Aqui relacionamos la tabla de doctores con la tabla de usuarios
-            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
+          //  $table->foreign(columns: 'doctor_id')->references('id')->on('users')->onDelete('cascade');
             //onDelete('cascade') es para que si se elimina el usuario se elimine el doctor
 
 
