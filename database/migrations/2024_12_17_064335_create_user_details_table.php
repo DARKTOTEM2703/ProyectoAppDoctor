@@ -20,7 +20,7 @@ return new class extends Migration
             //Aqui definimos el id del usuario
             $table->unsignedInteger('user_id')->unique(); //unsignedInteger es un entero sin signo y unique es para que no se repita
             //Aqui definimos el numero de pacientes que tiene el usuario
-            $table->longText('bio_data'); // longText es para texto largo
+            $table->longText(column: 'bio_data'); // longText es para texto largo
             // Aqui definimos el estado del usuario
             $table->unsignedInteger('status') -> nullable(); // nullable es para que pueda ser nulo
             //Aqui relacionamos la tabla de usuarios con la tabla de user_details
