@@ -30,11 +30,12 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Tipo de usuario') }}" />
-                <select id ='type' class="block w-full rounded-lg">
+                <x-label for="type" value="{{ __('Tipo de usuario') }}" />
+                <select id="type" name="type" class="block w-full mt-1 rounded-lg">
                     <option value="" selected disabled>{{ __('elige el tipo de usuario') }}</option>
-                    <option value="doctor"">Doctor</option>
+                    <option value="doctor">Doctor</option>
                     <option value="usuario">Usuario</option>
+                </select>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
