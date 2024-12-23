@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('id'); //Aqui el id se cambia a auto incrementable
+            $table->unsignedBigInteger('doc_id')->unique(); //Aqui usamos unsignedBigInteger para que el id sea positivo
+            $table->string('category')->nullable(); //Se agrega la cadena de txt para la categoria, pero asignamos nullable para que no sea obligatorio
+            $table->timestamps();//Aqui se agrega la fecha de creacion y actualizacion
         });
     }
 
