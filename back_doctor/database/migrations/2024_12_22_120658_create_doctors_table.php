@@ -11,10 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        //Aqui se crea la base de datos de doctores
+        //y esta tabla doctor hará referencia a la tabla de usuarios
+        //cuando un nuevo doctor se registre, doctor details creara
         Schema::create('doctors', function (Blueprint $table) {
-            $table->increments('id'); //Aqui el id se cambia a auto incrementable
+            $table->increments(column: 'id'); //Aqui el id se cambia a auto incrementable
             $table->unsignedBigInteger('doc_id')->unique(); //Aqui usamos unsignedBigInteger para que el id sea positivo
             $table->string('category')->nullable(); //Se agrega la cadena de txt para la categoria, pero asignamos nullable para que no sea obligatorio
+            $table->unsignedInteger('patients')->nullable(); //Aqui se agrega el numero de pacientes, pero asignamos nullable para que no sea obligatorio
+            $table->unsignedInteger('experience')->nullable(); //Aqui se agrega la experiencia, pero asignamos nullable para que no sea obligatorio
+            $table->longText('bio_data')->nullable(); //Aqui se agrega la bio data, pero asignamos nullable para que no sea obligatorio
+            $table->string('status')->nullable();//Aqui se agrega la cadena de txt para el status, pero asignamos nullable para que no sea obligatorio
+
+
             $table->timestamps();//Aqui se agrega la fecha de creacion y actualizacion
         });
     }
