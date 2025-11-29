@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: appdoctor_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_appdoctor
+      MYSQL_USER: appdoctor
+      MYSQL_PASSWORD: appdoctor123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - appdoctor_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Laravel API (opcional - solo si quieres containerizar también)
+  # laravel:
+  #   build:
+  #     context: ./back_doctor
+  #     dockerfile: Dockerfile
+  #   container_name: appdoctor_laravel
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #   environment:
+  #     - DB_HOST=mysql
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=db_appdoctor
+  #     - DB_USERNAME=appdoctor
+  #     - DB_PASSWORD=appdoctor123
+  #   volumes:
+  #     - ./back_doctor:/app
+  #   networks:
+  #     - appdoctor_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  appdoctor_network:
+    driver: bridge
