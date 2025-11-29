@@ -2,7 +2,45 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DoctorController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+
+// Ruta de prueba para verificar conexión desde Flutter
+Route::get('/test', function () {
+    return response()->json([
+        'success' => true,
+        'message' => '¡Conexión exitosa con Laravel!',
+        'timestamp' => now(),
+        'server_ip' => request()->ip(),
+    ]);
+});
+
+// ============ RUTAS PÚBLICAS (Sin autenticación) ============
+
+// Autenticación
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Doctores - Lectura pública
+Route::get('/doctors', [DoctorController::class, 'index']);
+Route::get('/doctors/{id}', [DoctorController::class, 'show']);
+Route::get('/doctors/specialty/{specialty}', [DoctorController::class, 'filterBySpecialty']);
+
+// ============ RUTAS PROTEGIDAS (Requieren autenticación Sanctum) ============
+
+Route::middleware('auth:sanctum')->group(function () {
+    // Datos del usuario autenticado
+    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    // Doctores - Administración (solo para usuarios autenticados)
+    Route::post('/doctors', [DoctorController::class, 'store']);
+    Route::put('/doctors/{id}', [DoctorController::class, 'update']);
+    Route::delete('/doctors/{id}', [DoctorController::class, 'destroy']);
+});

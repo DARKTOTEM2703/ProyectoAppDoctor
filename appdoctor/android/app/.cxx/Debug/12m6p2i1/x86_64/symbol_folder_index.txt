@@ -1,0 +1,1 @@
+C:\xampp\htdocs\Laravel\ProyectoAppDoctor\appdoctor\build\app\intermediates\cxx\Debug\12m6p2i1\obj\x86_64

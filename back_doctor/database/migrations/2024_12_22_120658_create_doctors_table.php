@@ -23,8 +23,9 @@ return new class extends Migration
             $table->unsignedInteger('experience')->nullable(); //Aqui se agrega la experiencia, pero asignamos nullable para que no sea obligatorio
             $table->longText('bio_data')->nullable(); //Aqui se agrega la bio data, pero asignamos nullable para que no sea obligatorio
             $table->string('status')->nullable();//Aqui se agrega la cadena de txt para el status, pero asignamos nullable para que no sea obligatorio
-
-
+            //Aqui se agrega la llave foranea de doc_id que hace referencia a la tabla de usuarios y se agrega onDelete('cascade') para que si se elimina el usuario,
+            //se elimine tambien el doctor
+            $table->foreign('doc_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();//Aqui se agrega la fecha de creacion y actualizacion
         });
     }

@@ -27,6 +27,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'type', //esta tipo va a ser el diferenciador entre doctor y paciente
         'email',
         'password',
     ];
