@@ -30,12 +30,8 @@ class Config {
 
   // Espacios predefinidos
   static const espacioPequeno = SizedBox(height: 25); // Espacio fijo de 25
-  static final espacioMediano = SizedBox(
-      height: altoDePantalla! *
-          0.05); // Espacio fijo dependiendo de la altura de la pantalla
-  static final espacioGrande = SizedBox(
-    height: altoDePantalla! * 0.08,
-  ); // Espacio fijo dependiendo de la altura de la pantalla
+  static const espacioMediano = SizedBox(height: 15); // Espacio fijo de 15
+  static const espacioGrande = SizedBox(height: 30); // Espacio fijo de 30
 
   // Estilos de bordes para entradas de texto
   static const bordeRedondeado = OutlineInputBorder(

@@ -1,5 +1,6 @@
 import 'package:appdoctor/screens/Home_page.dart';
 import 'package:appdoctor/screens/appointment_page.dart';
+import 'package:appdoctor/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class MainLayout extends StatefulWidget {
@@ -33,6 +34,7 @@ class _MainLayoutState extends State<MainLayout> {
           //Agregamos las páginas que queremos mostrar
           HomePage(),
           AppointmentPage(),
+          ProfilePage(userData: {}),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,6 +61,10 @@ class _MainLayoutState extends State<MainLayout> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today), // Icono de la página
             label: 'Citas', // Texto de la página
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person), // Icono de la página
+            label: 'Perfil', // Texto de la página
           ),
         ],
       ),

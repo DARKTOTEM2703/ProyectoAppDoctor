@@ -2,6 +2,7 @@ import 'package:appdoctor/components/booking_page.dart';
 import 'package:appdoctor/main_layout.dart';
 import 'package:appdoctor/screens/auth_page.dart'; // Corregido el nombre del archivo importado
 import 'package:appdoctor/screens/register_page.dart';
+import 'package:appdoctor/screens/profile_page.dart';
 import 'package:appdoctor/screens/doctor_details.dart';
 import 'package:appdoctor/screens/success_booking.dart';
 import 'package:appdoctor/utils/config.dart';
@@ -75,6 +76,11 @@ class MyApp extends StatelessWidget {
         'register': (context) => const RegisterPage(),
         'main': (context) =>
             const MainLayout(), // Asegúrate de que esta ruta esté definida
+        'profile': (context) {
+          // Obtener datos del usuario desde argumentos
+          final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+          return ProfilePage(userData: args ?? {});
+        },
         'doc_details': (context) => const DoctorDetails(),
         'booking_page': (context) => BookingPage(),
         'success_booking': (context) => AppointmentBooked(),
