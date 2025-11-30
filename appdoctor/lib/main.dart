@@ -1,6 +1,7 @@
 import 'package:appdoctor/components/booking_page.dart';
 import 'package:appdoctor/main_layout.dart';
 import 'package:appdoctor/screens/auth_page.dart'; // Corregido el nombre del archivo importado
+import 'package:appdoctor/screens/register_page.dart';
 import 'package:appdoctor/screens/doctor_details.dart';
 import 'package:appdoctor/screens/success_booking.dart';
 import 'package:appdoctor/utils/config.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Ruta inicial
       routes: {
         '/': (context) => const AuthPage(),
+        'register': (context) => const RegisterPage(),
         'main': (context) =>
             const MainLayout(), // Asegúrate de que esta ruta esté definida
         'doc_details': (context) => const DoctorDetails(),

@@ -76,6 +76,33 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
+                    Config.espacioPequeno,
+                    // Botón de Registro
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('register');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Config.colorprimario,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 50,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Crear Cuenta',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
