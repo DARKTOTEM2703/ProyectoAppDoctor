@@ -5,6 +5,7 @@ Una aplicación médica moderna desarrollada con **Flutter** (Mobile) y **Larave
 ## 📱 Demo
 
 **Dispositivo de Prueba:**
+
 - Xiaomi Redmi M2101K7BL (Android 13)
 - Conexión: WiFi local (192.168.1.6)
 - Control: Scrcpy + ADB
@@ -43,6 +44,7 @@ ProyectoAppDoctor/
 ## 🚀 Funcionalidades
 
 ### ✅ Frontend (Flutter)
+
 - **Autenticación**: Login y registro de usuarios
 - **Pantalla de Inicio**: Listado de doctores por especialidad
 - **Detalles de Doctor**: Información completa del profesional
@@ -51,6 +53,7 @@ ProyectoAppDoctor/
 - **Interfaz Responsiva**: Adaptada a diferentes tamaños de pantalla
 
 ### ✅ Backend (Laravel)
+
 - **API RESTful**: Endpoints para autenticación y gestión de doctores
 - **Autenticación Sanctum**: Tokens seguros para sesiones
 - **CRUD de Doctores**: Crear, leer, actualizar, eliminar doctores
@@ -62,26 +65,28 @@ ProyectoAppDoctor/
 
 ## 🛠️ Tecnologías
 
-| Componente | Tecnología | Versión |
-|-----------|-----------|---------|
-| **Frontend** | Flutter | 3.5.4+ |
-| **Mobile OS** | Android | 13+ |
-| **Backend** | Laravel | 11.x |
-| **Database** | MySQL | 5.7+ |
-| **Auth** | Laravel Sanctum | Latest |
-| **HTTP** | Dart http | 1.2.0+ |
+| Componente    | Tecnología      | Versión |
+| ------------- | --------------- | ------- |
+| **Frontend**  | Flutter         | 3.5.4+  |
+| **Mobile OS** | Android         | 13+     |
+| **Backend**   | Laravel         | 11.x    |
+| **Database**  | MySQL           | 5.7+    |
+| **Auth**      | Laravel Sanctum | Latest  |
+| **HTTP**      | Dart http       | 1.2.0+  |
 
 ---
 
 ## 📋 Requisitos Previos
 
 ### Para Frontend (Flutter)
+
 - Flutter 3.5.4 o superior
 - Android SDK
 - Dispositivo físico Android o emulador
 - ADB (Android Debug Bridge)
 
 ### Para Backend (Laravel)
+
 - PHP 8.2 o superior
 - Composer
 - MySQL/MariaDB
@@ -123,6 +128,7 @@ npm install && npm run build
 ```
 
 **Configurar variables en `.env`:**
+
 ```env
 APP_URL=http://192.168.1.8:8000
 DB_CONNECTION=mysql
@@ -344,6 +350,7 @@ curl http://192.168.1.8:8000/api/user \
 **Causa**: El celular no puede alcanzar tu PC
 
 **Solución**:
+
 ```powershell
 # Permite el puerto 8000 en Firewall de Windows
 New-NetFirewallRule -DisplayName "Laravel Dev Server" -Direction Inbound -Protocol TCP -LocalPort 8000 -Action Allow
@@ -355,6 +362,7 @@ ipconfig
 ### Error: "CORS error"
 
 **Solución**: Edita `back_doctor/config/cors.php`
+
 ```php
 'paths' => ['api/*'],
 'allowed_origins' => ['*'],
@@ -364,6 +372,7 @@ ipconfig
 ### Error: "Database connection failed"
 
 **Solución**: Verifica `.env` en `back_doctor/`
+
 ```env
 DB_HOST=127.0.0.1
 DB_DATABASE=appdoctor
@@ -423,6 +432,7 @@ Este proyecto está bajo la licencia MIT. Ver archivo `LICENSE` para más detall
 ## ❓ Preguntas o Soporte
 
 Para reportar bugs o hacer preguntas:
+
 1. Abre un [Issue](https://github.com/DARKTOTEM2703/ProyectoAppDoctor/issues)
 2. Proporciona detalles de tu entorno
 3. Adjunta logs o capturas de pantalla

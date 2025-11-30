@@ -21,7 +21,6 @@ class DoctorController extends Controller
                 'data' => $doctors,
                 'total' => count($doctors),
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -50,7 +49,6 @@ class DoctorController extends Controller
                 'message' => 'Detalles del doctor obtenidos',
                 'data' => $doctor,
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -74,7 +72,6 @@ class DoctorController extends Controller
                 'data' => $doctors,
                 'total' => count($doctors),
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -103,7 +100,6 @@ class DoctorController extends Controller
                 'message' => 'Doctor creado exitosamente',
                 'data' => $doctor,
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -134,7 +130,6 @@ class DoctorController extends Controller
                 'message' => 'Doctor actualizado exitosamente',
                 'data' => $doctor,
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -164,7 +159,6 @@ class DoctorController extends Controller
                 'success' => true,
                 'message' => 'Doctor eliminado exitosamente',
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

@@ -69,7 +69,7 @@ class _Estadodelosformulariosdeiniciodesesion
         if (response['success'] ?? false) {
           // Login exitoso
           widget.onLoginSuccess(response);
-          
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(response['message'] ?? 'Login exitoso'),
@@ -123,7 +123,7 @@ class _Estadodelosformulariosdeiniciodesesion
             ),
           ),
           Config.espacioPequeno,
-          
+
           // Campo de contraseña
           TextFormField(
             controller: _controladordecontrasena,
@@ -152,9 +152,9 @@ class _Estadodelosformulariosdeiniciodesesion
               ),
             ),
           ),
-          
+
           Config.espacioPequeno,
-          
+
           // Botón de envío
           SizedBox(
             width: double.infinity,

@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Datos del usuario autenticado
     Route::get('/user', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    
+
     // Doctores - Administración (solo para usuarios autenticados)
     Route::post('/doctors', [DoctorController::class, 'store']);
     Route::put('/doctors/{id}', [DoctorController::class, 'update']);

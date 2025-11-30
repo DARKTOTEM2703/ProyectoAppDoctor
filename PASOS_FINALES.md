@@ -16,6 +16,7 @@
 ### 1️⃣ Instalar la dependencia HTTP en Flutter
 
 **OPCIÓN A - Desde VS Code:**
+
 1. Abre una terminal en VS Code (`Ctrl + ñ`)
 2. Navega a la carpeta de Flutter:
    ```powershell
@@ -28,6 +29,7 @@
 
 **OPCIÓN B - Desde tu terminal de Flutter existente:**
 Si ya tienes Flutter configurado en otra terminal/CMD, solo ejecuta:
+
 ```bash
 flutter pub get
 ```
@@ -98,7 +100,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Config.init(context); // Inicializa las dimensiones
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('AppDoctor - Test'),
@@ -113,10 +115,10 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            
+
             // Widget de prueba de conexión
             const TestConnectionButton(),
-            
+
             // Tus otros widgets...
           ],
         ),
@@ -160,18 +162,21 @@ flutter run -d 192.168.1.6
 **Soluciones:**
 
 1. **Verifica que Laravel esté corriendo:**
+
    ```powershell
    # Abre http://192.168.1.8:8000 en TU NAVEGADOR de PC
    # Si no carga, Laravel no está corriendo
    ```
 
 2. **Permite el puerto en el Firewall:**
+
    ```powershell
    # Ejecuta como Administrador:
    New-NetFirewallRule -DisplayName "Laravel Dev Server" -Direction Inbound -Protocol TCP -LocalPort 8000 -Action Allow
    ```
 
 3. **Verifica la IP del PC:**
+
    ```powershell
    ipconfig
    # Busca tu IP en "Adaptador de Ethernet" o "Adaptador de LAN inalámbrica"
@@ -205,6 +210,7 @@ Ahora que todo está configurado, prueba esto en el Chat de Copilot:
 ```
 
 Copilot ya sabe:
+
 - Tu IP es 192.168.1.8
 - Usar ApiService en lugar de localhost
 - Seguir tu estructura de Config.dart

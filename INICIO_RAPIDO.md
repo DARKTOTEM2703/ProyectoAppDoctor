@@ -1,6 +1,7 @@
 # 🚀 Guía de Inicio Rápido - AppDoctor
 
 ## 📱 Dispositivo conectado
+
 - **Celular**: Xiaomi Redmi M2101K7BL (192.168.1.6)
 - **PC**: 192.168.1.8
 - **Conexión**: ADB + Scrcpy
@@ -86,12 +87,14 @@ ElevatedButton(
 ### ❌ "Connection refused" o "Failed to connect"
 
 **Solución 1**: Verifica el Firewall de Windows
+
 ```powershell
 # Permite el puerto 8000 en Windows Firewall
 New-NetFirewallRule -DisplayName "Laravel Dev Server" -Direction Inbound -Protocol TCP -LocalPort 8000 -Action Allow
 ```
 
 **Solución 2**: Verifica que Laravel esté corriendo
+
 ```powershell
 # En otra terminal, verifica:
 netstat -an | findstr :8000
@@ -99,6 +102,7 @@ netstat -an | findstr :8000
 ```
 
 **Solución 3**: Verifica la IP en Config.dart
+
 ```dart
 // Debe ser 192.168.1.8, NO localhost
 static const String apiBaseUrl = '192.168.1.8:8000';
@@ -115,6 +119,7 @@ adb connect 192.168.1.6
 ### ❌ CORS Error en peticiones
 
 Edita `back_doctor/config/cors.php`:
+
 ```php
 'paths' => ['api/*'],
 'allowed_origins' => ['*'],
@@ -139,6 +144,7 @@ Edita `back_doctor/config/cors.php`:
 ## 🎯 Próximos Pasos
 
 1. **Crear rutas de autenticación en Laravel**:
+
    ```php
    // routes/api.php
    Route::post('/login', [AuthController::class, 'login']);
@@ -146,6 +152,7 @@ Edita `back_doctor/config/cors.php`:
    ```
 
 2. **Implementar pantalla de login en Flutter**:
+
    ```dart
    // Usar auth_examples.dart como referencia
    await ApiService.post('login', {...});
@@ -183,6 +190,7 @@ adb shell                       # Acceder al shell del dispositivo
 ## 📞 Soporte
 
 Si encuentras algún error, revisa:
+
 1. Los logs de Laravel: `back_doctor/storage/logs/laravel.log`
 2. Los logs de Flutter: En la consola donde corriste `flutter run`
 3. Los logs de Android: `adb logcat`

@@ -3,9 +3,9 @@ import 'package:appdoctor/services/api_service.dart';
 import 'package:appdoctor/utils/config.dart';
 
 /// Widget de prueba para verificar la conexión con el backend Laravel
-/// 
+///
 /// USO: Agrega este widget en cualquier pantalla para probar la conexión
-/// 
+///
 /// Example:
 /// ```dart
 /// Column(
@@ -36,7 +36,7 @@ class _TestConnectionButtonState extends State<TestConnectionButton> {
 
     try {
       final response = await ApiService.get('test');
-      
+
       setState(() {
         _isLoading = false;
         _hasError = false;
@@ -114,7 +114,7 @@ URL intentada: ${Config.fullApiUrl}/test
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: _isLoading ? null : _testConnection,
               icon: _isLoading
@@ -134,14 +134,14 @@ URL intentada: ${Config.fullApiUrl}/test
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            
+
             if (_result.isNotEmpty) ...[
               const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _hasError 
-                      ? Colors.red.shade50 
+                  color: _hasError
+                      ? Colors.red.shade50
                       : Colors.green.shade50,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(

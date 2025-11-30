@@ -45,7 +45,6 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
                 'user' => $user,
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -95,7 +94,6 @@ class AuthController extends Controller
                     'email' => $user->email,
                 ],
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -129,7 +127,6 @@ class AuthController extends Controller
                     'created_at' => $user->created_at,
                 ],
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -150,7 +147,6 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Logout exitoso',
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
