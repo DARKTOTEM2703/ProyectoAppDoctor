@@ -92,7 +92,7 @@ class _AuthPageState extends State<AuthPage> {
                     Center(
                       child: Text(
                         APPText.obtenerTexto('es', 'social-login'),
-                        style: TextStyle(
+                        style = TextStyle(
                           fontSize: 16, // Tamaño de la fuente de 16
                           fontWeight: FontWeight.bold, // Fuente en negrita
                           color:
@@ -104,8 +104,8 @@ class _AuthPageState extends State<AuthPage> {
                     Row(
                       mainAxisAlignment:
                           MainAxisAlignment.center, // Centrar horizontalmente
-                      children: const <Widget>[
-                        SocialButton(social: 'Google'),
+                      children: <Widget>[
+                        SocialButton(social = 'Google'),
                       ],
                     ),
                     Config.espacioPequeno,
@@ -114,14 +114,14 @@ class _AuthPageState extends State<AuthPage> {
                       children: <Widget>[
                         Text(
                           APPText.obtenerTexto('es', 'singUp_text'),
-                          style: TextStyle(
+                          style = TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
                               color: Colors.grey.shade500),
                         ),
                         Text(
                           'inicia sesion',
-                          style: TextStyle(
+                          style = TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
