@@ -1,6 +1,7 @@
-import 'package:appdoctor/services/api_service.dart';
+import 'package:appdoctor/services/auth_service.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Formulariodeiniciodesecion extends StatefulWidget {
   final Function(Map<String, dynamic>) onLoginSuccess;
@@ -56,10 +57,10 @@ class _Estadodelosformulariosdeiniciodesesion
     });
 
     try {
-      final response = await ApiService.post('login', {
-        'email': _controladordecorreo.text.trim(),
-        'password': _controladordecontrasena.text,
-      });
+      final response = await AuthService.login(
+        email: _controladordecorreo.text.trim(),
+        password: _controladordecontrasena.text,
+      );
 
       if (mounted) {
         setState(() {
@@ -67,7 +68,12 @@ class _Estadodelosformulariosdeiniciodesesion
         });
 
         if (response['success'] ?? false) {
-          // Login exitoso
+          // Login exitoso - guardar token
+          final token = response['access_token'];
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('auth_token', token);
+
+          // Llamar al callback de éxito
           widget.onLoginSuccess(response);
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -92,10 +98,19 @@ class _Estadodelosformulariosdeiniciodesesion
           _isLoading = false;
         });
 
+        String errorMessage = 'Error de conexión';
+        if (e.toString().contains('Connection refused')) {
+          errorMessage =
+              'No se pudo conectar al servidor. Verifica que el backend esté corriendo en localhost:8000';
+        } else {
+          errorMessage = 'Error: $e';
+        }
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error de conexión: $e'),
+            content: Text(errorMessage),
             backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
           ),
         );
       }
@@ -145,9 +160,7 @@ class _Estadodelosformulariosdeiniciodesesion
                         });
                       },
                 icon: Icon(
-                  mostrarcontrasena
-                      ? Icons.visibility
-                      : Icons.visibility_off,
+                  mostrarcontrasena ? Icons.visibility : Icons.visibility_off,
                 ),
               ),
             ),
@@ -189,4 +202,3 @@ class _Estadodelosformulariosdeiniciodesesion
     super.dispose();
   }
 }
-

@@ -20,11 +20,11 @@ class Config {
   }
 
   //funcin para acceder a las dimensiones de pantalla
-  static get obtenerAnchoDePantalla {
+  static double? get obtenerAnchoDePantalla {
     return anchoDePantalla;
   }
 
-  static get obtenerAltoDePantalla {
+  static double? get obtenerAltoDePantalla {
     return altoDePantalla;
   }
 
@@ -49,11 +49,23 @@ class Config {
   static const colorprimario = Colors
       .greenAccent; // aqui asignamos a la variable primaryColor el color verde
 
-  // API Configuration - Linux SQLite Local Development
-  // Para desarrollo local en Linux con SQLite (sin configuración de red)
-  static const String apiBaseUrl = 'localhost:8000';
+  // API Configuration - Network Development
+  // La IP se obtiene dinámicamente en tiempo de ejecución
+  // Si cambias de red, la app automáticamente detecta la nueva IP
+  static String? _apiBaseUrl;
   static const String apiPrefix = '/api';
-  
+
+  // Setter para actualizar la IP base dinámicamente
+  static void setApiBaseUrl(String url) {
+    _apiBaseUrl = url;
+    print('🔵 Config: API Base URL actualizada a: $_apiBaseUrl');
+  }
+
+  // Getter que retorna la IP dinámicamente
+  static String get apiBaseUrl {
+    return _apiBaseUrl ?? 'localhost:8000';
+  }
+
   // URL completa de la API
-  static String get fullApiUrl => 'http://$apiBaseUrl$apiPrefix';
+  static String get fullApiUrl => 'http://${apiBaseUrl}$apiPrefix';
 }

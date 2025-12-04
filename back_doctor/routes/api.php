@@ -22,6 +22,25 @@ Route::get('/test', function () {
     ]);
 });
 
+// Ruta para obtener la IP del servidor (para detección automática)
+Route::get('/server-ip', function () {
+    // Obtiene la IP del servidor desde las variables de entorno o request
+    $serverIp = request()->getHost();
+    
+    // Si está en localhost, intenta obtener la IP real de la red local
+    if ($serverIp === 'localhost' || $serverIp === '127.0.0.1') {
+        $serverIp = gethostbyname(gethostname());
+    }
+    
+    return response()->json([
+        'success' => true,
+        'server_ip' => $serverIp,
+        'server_port' => request()->getPort(),
+        'full_url' => request()->getSchemeAndHttpHost(),
+        'timestamp' => now(),
+    ]);
+});
+
 // ============ RUTAS PÚBLICAS (Sin autenticación) ============
 
 // Autenticación

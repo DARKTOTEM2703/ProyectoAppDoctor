@@ -1,13 +1,13 @@
 import 'package:appdoctor/utils/config.dart';
+import 'package:appdoctor/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:appdoctor/services/api_service.dart';
 
 class ProfilePage extends StatefulWidget {
-  final Map<String, dynamic> userData;
+  final Map<String, dynamic>? userData;
 
   const ProfilePage({
     super.key,
-    required this.userData,
+    this.userData,
   });
 
   @override
@@ -16,9 +16,53 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool _isLoading = false;
+  bool _isLoadingUserData = true;
+  Map<String, dynamic>? _userData;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.userData != null && widget.userData!.isNotEmpty) {
+      _userData = widget.userData;
+      _isLoadingUserData = false;
+    } else {
+      _loadUserData();
+    }
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) {
+        if (mounted) {
+          setState(() {
+            _errorMessage = 'Por favor inicia sesión primero';
+            _isLoadingUserData = false;
+          });
+        }
+        return;
+      }
+
+      final userData = await AuthService.getUser(token);
+      if (mounted) {
+        setState(() {
+          _userData = userData;
+          _isLoadingUserData = false;
+        });
+      }
+    } catch (e) {
+      print('🔴 Error cargando datos del usuario: $e');
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Error cargando datos: $e';
+          _isLoadingUserData = false;
+        });
+      }
+    }
+  }
 
   Future<void> _handleLogout() async {
-    // Mostrar diálogo de confirmación
     final shouldLogout = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -45,29 +89,21 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() => _isLoading = true);
 
     try {
-      final response = await ApiService.post('logout', {});
+      final token = await AuthService.getToken();
+      if (token == null) {
+        throw Exception('Token no encontrado');
+      }
 
-      if (response['success'] == true) {
-        // Logout exitoso - volver a login
-        if (mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
-          
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Sesión cerrada correctamente'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(response['message'] ?? 'Error al cerrar sesión'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+      await AuthService.logout(token);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sesión cerrada correctamente'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } catch (e) {
       if (mounted) {
@@ -87,6 +123,37 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoadingUserData) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Config.colorprimario,
+          title: const Text('Mi Perfil'),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Config.colorprimario,
+          title: const Text('Mi Perfil'),
+        ),
+        body: Center(
+          child: Text(
+            _errorMessage!,
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
+      );
+    }
+
+    final userName = _userData?['name'] ?? 'Usuario';
+    final userEmail = _userData?['email'] ?? 'Sin email';
+    final userId = _userData?['id'] ?? 'N/A';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Config.colorprimario,
@@ -106,7 +173,6 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Avatar
               Container(
                 width: 100,
                 height: 100,
@@ -116,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 child: Center(
                   child: Text(
-                    (widget.userData['name'] ?? 'Usuario')[0].toUpperCase(),
+                    userName[0].toUpperCase(),
                     style: const TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
@@ -126,38 +192,30 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Config.espacioPequeno,
-
-              // Nombre
               Text(
-                widget.userData['name'] ?? 'Usuario',
+                userName,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Config.espacioMediano,
-
-              // Email
               Text(
-                widget.userData['email'] ?? 'Sin email',
+                userEmail,
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey.shade600,
                 ),
               ),
               Config.espacioPequeno,
-
-              // ID Usuario
               Text(
-                'ID: ${widget.userData['id'] ?? 'N/A'}',
+                'ID: $userId',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey.shade500,
                 ),
               ),
               Config.espacioGrande,
-
-              // Sección de Información
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -175,15 +233,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     Config.espacioMediano,
-                    _buildInfoRow('Nombre', widget.userData['name'] ?? 'N/A'),
-                    _buildInfoRow('Email', widget.userData['email'] ?? 'N/A'),
-                    _buildInfoRow('ID Usuario', widget.userData['id']?.toString() ?? 'N/A'),
+                    _buildInfoRow('Nombre', userName),
+                    _buildInfoRow('Email', userEmail),
+                    _buildInfoRow('ID Usuario', userId.toString()),
                   ],
                 ),
               ),
               Config.espacioGrande,
-
-              // Botón de Cerrar Sesión
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -201,7 +257,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                             strokeWidth: 2,
                           ),
                         )

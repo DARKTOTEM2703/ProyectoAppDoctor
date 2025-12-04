@@ -70,7 +70,7 @@ class AuthService {
       final response = await ApiService.get('user', token: token);
 
       if (response['success'] == true) {
-        return response['data'] ?? response;
+        return response['user'] ?? response;
       } else {
         throw Exception(response['message'] ?? 'Error al obtener usuario');
       }

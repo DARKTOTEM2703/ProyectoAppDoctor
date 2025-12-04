@@ -2,12 +2,19 @@
 
 Una aplicación médica moderna desarrollada con **Flutter** (Mobile) y **Laravel** (Backend API), diseñada para conectar pacientes con doctores especializados.
 
+## 📚 Documentación
+
+- **Frontend**: [`appdoctor/doc/README.md`](appdoctor/doc/README.md) - Guía completa de la app Flutter
+- **Backend**: [`back_doctor/doc/README.md`](back_doctor/doc/README.md) - Documentación de la API Laravel
+
+---
+
 ## 📱 Demo
 
 **Dispositivo de Prueba:**
 
 - Xiaomi Redmi M2101K7BL (Android 13)
-- Conexión: WiFi local (192.168.1.6)
+- Conexión: WiFi local (10.64.134.126)
 - Control: Scrcpy + ADB
 
 ---

@@ -1,73 +1,148 @@
 import 'package:appdoctor/utils/config.dart';
+import 'package:appdoctor/models/appointment_model.dart';
+import 'package:appdoctor/services/appointment_service.dart';
+import 'package:appdoctor/services/auth_service.dart';
 import 'package:flutter/material.dart';
-// Importa el paquete de material de flutter
 
 class AppointmentPage extends StatefulWidget {
-  //Stateful widget sirve para crear widgets que pueden cambiar de estado
-  const AppointmentPage(
-      {super.key}); // Llamar al constructor de la clase padre correctamente
-  @override // Anulación de la función createState
-  State<AppointmentPage> createState() =>
-      _AppointmentPageState(); // Devuelve el estado de la página de inicio
+  const AppointmentPage({super.key});
+
+  @override
+  State<AppointmentPage> createState() => _AppointmentPageState();
 }
 
 enum FilterStatus {
   upcoming,
   complete,
-  cancel
-} // Enumeración de los estados del filtro
+  cancel,
+}
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  // Estado de la página de inicio
-  FilterStatus estado = FilterStatus.upcoming; // Estado del filtro
-  Alignment _aleniacion = Alignment.centerLeft; // Alineación de los elementos
-  List<dynamic> horarios = [
-    {
-      "doctor_name": "Dr. Juan Perez",
-      "doctor_profile": "assets/doctor_1.png",
-      "category": "Cardiologia",
-      "estado": FilterStatus.upcoming,
-    },
-    {
-      "doctor_name": "Dr. Roberto Gomez",
-      "doctor_profile": "assets/Doctor_2.jpg",
-      "category": "Cardiologia",
-      "estado": FilterStatus.complete,
-    },
-    {
-      "doctor_name": "Dr. Alfonso Garcia",
-      "doctor_profile": "assets/doctor_3.jpg",
-      "category": "Cardiologia",
-      "estado": FilterStatus.cancel,
-    },
-  ]; // Lista de horarios
+  FilterStatus estado = FilterStatus.upcoming;
+  Alignment _aleniacion = Alignment.centerLeft;
+  List<Appointment> appointments = [];
+  bool _isLoading = true;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppointments();
+  }
+
+  /// Carga las citas del usuario autenticado desde el backend
+  Future<void> _loadAppointments() async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) {
+        setState(() {
+          _errorMessage = 'Por favor inicia sesión primero';
+          _isLoading = false;
+        });
+        return;
+      }
+
+      final fetchedAppointments =
+          await AppointmentService.getUserAppointments(token);
+      print('🟢 Citas cargadas: ${fetchedAppointments.length}');
+
+      if (mounted) {
+        setState(() {
+          appointments = fetchedAppointments;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('🔴 Error cargando citas: $e');
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Error cargando citas: $e';
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  /// Mapea el estado de la cita a FilterStatus
+  FilterStatus _mapStatusToFilter(String status) {
+    switch (status.toLowerCase()) {
+      case 'upcoming':
+        return FilterStatus.upcoming;
+      case 'complete':
+        return FilterStatus.complete;
+      case 'cancel':
+        return FilterStatus.cancel;
+      default:
+        return FilterStatus.upcoming;
+    }
+  }
+
+  /// Cancela una cita
+  Future<void> _cancelAppointment(int appointmentId) async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) return;
+
+      await AppointmentService.cancelAppointment(appointmentId, token);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cita cancelada exitosamente'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        _loadAppointments(); // Recarga las citas
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Construcción de la página de inicio
-    List<dynamic> horariosFiltrados = horarios.where((var horarios) {
-      //   switch (horarios['estado']) {
-      //     case 'upcoming':
-      //       horarios['estado'] = FilterStatus.upcoming;
-      //       break;
-      //     case 'complete':
-      //       horarios['estado'] = FilterStatus.complete;
-      //       break;
-      //     case 'cancel':
-      //       horarios['estado'] = FilterStatus.cancel;
-      //       break;
-      //   }
-      return horarios['estado'] == estado;
-    }).toList(); // Lista de horarios filtrados
+    Config.init(context);
+
+    // Filtra las citas según el estado seleccionado
+    List<Appointment> appointmentsFiltrados = appointments
+        .where(
+            (appointment) => _mapStatusToFilter(appointment.status) == estado)
+        .toList();
+
+    if (_isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        body: Center(
+          child: Text(
+            _errorMessage!,
+            style: const TextStyle(color: Colors.red, fontSize: 16),
+          ),
+        ),
+      );
+    }
+
     return SafeArea(
       child: Padding(
-        // Padding es un widget que permite agregar relleno a un widget hijo
-        padding: const EdgeInsets.only(
-            left: 20, top: 20, right: 20), // Padding de la página de inicio
+        padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'horarios de citas',
+            const Text(
+              'Horarios de citas',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -75,6 +150,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
               ),
             ),
             Config.espacioPequeno,
+            // Filtros de estado
             Stack(
               children: [
                 Container(
@@ -92,14 +168,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
+                                estado = filter;
                                 if (filter == FilterStatus.upcoming) {
-                                  estado = FilterStatus.upcoming;
                                   _aleniacion = Alignment.centerLeft;
                                 } else if (filter == FilterStatus.complete) {
-                                  estado = FilterStatus.complete;
                                   _aleniacion = Alignment.center;
                                 } else if (filter == FilterStatus.cancel) {
-                                  estado = FilterStatus.cancel;
                                   _aleniacion = Alignment.centerRight;
                                 }
                               });
@@ -111,7 +185,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     : filter == FilterStatus.complete
                                         ? 'Completadas'
                                         : 'Canceladas',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -125,7 +199,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 ),
                 AnimatedAlign(
                   alignment: _aleniacion,
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 4,
                     height: 40,
@@ -140,7 +214,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             : estado == FilterStatus.complete
                                 ? 'Completadas'
                                 : 'Canceladas',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -152,174 +226,186 @@ class _AppointmentPageState extends State<AppointmentPage> {
               ],
             ),
             Config.espacioPequeno,
+            // Lista de citas filtradas
             Expanded(
-              child: ListView.builder(
-                itemCount: horariosFiltrados.length,
-                itemBuilder: ((context, index) {
-                  var horario = horariosFiltrados[index];
-                  bool isLastElements = horariosFiltrados.length == index + 1;
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                        color: Colors.grey,
+              child: appointmentsFiltrados.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No hay citas ${estado == FilterStatus.upcoming ? 'próximas' : estado == FilterStatus.complete ? 'completadas' : 'canceladas'}',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: !isLastElements
-                        ? const EdgeInsets.only(bottom: 20)
-                        : const EdgeInsets.all(0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage(horario['doctor_profile']),
-                              ),
-                              Config.espacioPequeno,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    horario['doctor_name'],
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    horario['category'],
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
+                    )
+                  : ListView.builder(
+                      itemCount: appointmentsFiltrados.length,
+                      itemBuilder: (context, index) {
+                        final appointment = appointmentsFiltrados[index];
+                        final isLastElement =
+                            appointmentsFiltrados.length == index + 1;
+                        final doctor = appointment.doctor;
+                        final doctorName = doctor != null
+                            ? (doctor['user']?['name'] ?? 'Doctor')
+                            : 'Doctor';
+                        final specialty = doctor != null
+                            ? (doctor['specialty'] ?? 'Medicina General')
+                            : 'Medicina General';
+
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          _EstadoHorario(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          margin: !isLastElement
+                              ? const EdgeInsets.only(bottom: 20)
+                              : const EdgeInsets.all(0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Expanded(
-                                  child: OutlinedButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      'Cancelar',
-                                      style: TextStyle(
-                                          color: Config.colorprimario),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                // SizedBox es un widget que permite agregar un espacio en blanco
-                                /// Un widget que crea un botón expandido con un borde y un color de fondo personalizado
-                                /// y una etiqueta de texto 'Reagendar' en color blanco.
-                                ///
-                                /// Actualmente, el botón no tiene ninguna acción asignada a su callback `onPressed`.
-                                ///
-                                /// - El color de fondo del botón se establece en `Config.colorprimario`.
-                                /// - La etiqueta de texto está estilizada con color blanco.
-                                Expanded(
-                                  child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
+                                // Información del doctor
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30,
                                       backgroundColor: Config.colorprimario,
+                                      child: Text(
+                                        doctorName.isNotEmpty
+                                            ? doctorName[0].toUpperCase()
+                                            : 'D',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      'Reagendar',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Dr. $doctorName',
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          specialty,
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                // Información de fecha y hora
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade700,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  padding: const EdgeInsets.all(12),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.calendar_today,
+                                            color: Config.colorprimario,
+                                            size: 15,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '${appointment.date.day}/${appointment.date.month}/${appointment.date.year}',
+                                            style: const TextStyle(
+                                              color: Config.colorprimario,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.access_alarm,
+                                            color: Config.colorprimario,
+                                            size: 15,
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            appointment.time,
+                                            style: const TextStyle(
+                                              color: Config.colorprimario,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ])
-                        ],
-                      ),
+                                const SizedBox(height: 15),
+                                // Botones de acción
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed:
+                                            estado == FilterStatus.upcoming
+                                                ? () => _cancelAppointment(
+                                                    appointment.id)
+                                                : null,
+                                        child: const Text(
+                                          'Cancelar',
+                                          style: TextStyle(
+                                            color: Config.colorprimario,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                          backgroundColor: Config.colorprimario,
+                                        ),
+                                        onPressed:
+                                            estado == FilterStatus.upcoming
+                                                ? () {
+                                                    // TODO: Implementar reagendar
+                                                  }
+                                                : null,
+                                        child: const Text(
+                                          'Reagendar',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                }),
-              ),
             ),
           ],
-          // Column es un widget que organiza a sus hijos en una columna
         ),
-      ),
-    ); // Devuelve el centro de la página de inicio
-  }
-}
-
-class _EstadoHorario extends StatefulWidget {
-  @override
-  _EstadoHorarioState createState() => _EstadoHorarioState();
-}
-
-class _EstadoHorarioState extends State<_EstadoHorario> {
-  // Estado del horario
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        // BoxDecoration es una clase que permite decorar un contenedor
-        color: Colors.grey.shade700, // Color de fondo
-        borderRadius: BorderRadius.circular(50), // Bordes redondeados
-      ),
-      width: double.infinity, // Ancho del contenedor
-      padding: const EdgeInsets.all(20), // Padding de 20
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-        // Row es un widget que organiza a sus hijos en una fila horizontal
-        children: const <Widget>[
-          Icon(
-            Icons.calendar_today, // Icono de calendario
-            color: Config.colorprimario, // Color del icono
-            size: 15, // Tamaño del icono
-          ),
-          SizedBox(
-            width: 10, // Espacio de 10
-          ), // SizedBox es un widget que permite agregar un espacio en blanco
-          Text(
-            'Lunes 12 de Julio 2024', // Texto del día
-            style: TextStyle(
-              color: Config.colorprimario, // Color del texto
-            ),
-          ),
-          SizedBox(
-            width: 20, // Espacio de 20
-          ),
-          Icon(
-            Icons.access_alarm, // Icono de alarma
-            color: Config.colorprimario, // Color del icono
-            size: 17, // Tamaño del icono
-          ),
-          SizedBox(
-            width: 5, // Espacio de 5
-          ),
-          Flexible(
-            child: Text(
-              '2:00 PM', // Texto de la hora
-              style: TextStyle(
-                color: Config.colorprimario, // Color del texto
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

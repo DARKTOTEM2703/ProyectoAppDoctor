@@ -59,7 +59,12 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ), // Texto de inicio de sesión
                   Config.espacioPequeno, // Espacio pequeño
-                  const Formulariodeiniciodesecion(), // Formulario de inicio de sesión
+                  Formulariodeiniciodesecion(
+                    onLoginSuccess: (response) {
+                      // Navegar a main después del login exitoso
+                      Navigator.of(context).pushReplacementNamed('main');
+                    },
+                  ), // Formulario de inicio de sesión
                   Config.espacioPequeno, // Espacio pequeño
                   Center(
                     child: TextButton(

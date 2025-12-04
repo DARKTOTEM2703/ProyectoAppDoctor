@@ -6,9 +6,14 @@ import 'package:appdoctor/screens/profile_page.dart';
 import 'package:appdoctor/screens/doctor_details.dart';
 import 'package:appdoctor/screens/success_booking.dart';
 import 'package:appdoctor/utils/config.dart';
+import 'package:appdoctor/services/ip_service.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  // Detectar la IP del servidor dinámicamente antes de iniciar la app
+  final serverIp = await IpService.detectServerIp();
+  Config.setApiBaseUrl('$serverIp:8000');
+
   runApp(const MyApp());
 }
 
@@ -78,7 +83,8 @@ class MyApp extends StatelessWidget {
             const MainLayout(), // Asegúrate de que esta ruta esté definida
         'profile': (context) {
           // Obtener datos del usuario desde argumentos
-          final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+          final args = ModalRoute.of(context)?.settings.arguments
+              as Map<String, dynamic>?;
           return ProfilePage(userData: args ?? {});
         },
         'doc_details': (context) => const DoctorDetails(),

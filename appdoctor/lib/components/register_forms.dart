@@ -1,6 +1,7 @@
-import 'package:appdoctor/services/api_service.dart';
+import 'package:appdoctor/services/auth_service.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormularioDeRegistro extends StatefulWidget {
   final Function(Map<String, dynamic>) onRegisterSuccess;
@@ -60,29 +61,45 @@ class _FormularioDeRegistroState extends State<FormularioDeRegistro> {
     }
 
     // Validar longitud de contraseña
-    if (_passwordController.text.length < 6) {
-      setState(() => _errorMessage = 'La contraseña debe tener al menos 6 caracteres');
+    if (_passwordController.text.length < 8) {
+      setState(() =>
+          _errorMessage = 'La contraseña debe tener al menos 8 caracteres');
       return;
     }
 
     setState(() => _isLoading = true);
 
     try {
-      final response = await ApiService.post('register', {
-        'name': _nameController.text,
-        'email': _emailController.text,
-        'password': _passwordController.text,
-        'password_confirmation': _confirmPasswordController.text,
-      });
+      final response = await AuthService.register(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        passwordConfirmation: _confirmPasswordController.text,
+      );
 
       if (response['success'] == true) {
+        // Guardar token en SharedPreferences
+        final token = response['access_token'];
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('auth_token', token);
+
         // Registro exitoso
         widget.onRegisterSuccess(response);
       } else {
-        setState(() => _errorMessage = response['message'] ?? 'Error en el registro');
+        setState(() =>
+            _errorMessage = response['message'] ?? 'Error en el registro');
       }
     } catch (e) {
-      setState(() => _errorMessage = 'Error: $e');
+      String errorMessage = 'Error desconocido';
+      if (e.toString().contains('Connection refused')) {
+        errorMessage =
+            'No se pudo conectar al servidor. Verifica que el backend esté corriendo en localhost:8000';
+      } else if (e.toString().contains('unique')) {
+        errorMessage = 'Este email ya está registrado';
+      } else {
+        errorMessage = 'Error: $e';
+      }
+      setState(() => _errorMessage = errorMessage);
     } finally {
       setState(() => _isLoading = false);
     }
