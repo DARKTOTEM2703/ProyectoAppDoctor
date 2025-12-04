@@ -49,9 +49,9 @@ class Config {
   static const colorprimario = Colors
       .greenAccent; // aqui asignamos a la variable primaryColor el color verde
 
-  // API Configuration - IMPORTANTE: IP de tu PC en la red local (WSL)
-  // Tu PC: 192.168.1.8, Tu Celular: 192.168.1.6
-  static const String apiBaseUrl = '192.168.1.8:8000';
+  // API Configuration - Linux SQLite Local Development
+  // Para desarrollo local en Linux con SQLite (sin configuración de red)
+  static const String apiBaseUrl = 'localhost:8000';
   static const String apiPrefix = '/api';
   
   // URL completa de la API
