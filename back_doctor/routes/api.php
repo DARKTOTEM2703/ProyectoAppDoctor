@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::get('/doctors', [DoctorController::class, 'index']);
 Route::get('/doctors/{id}', [DoctorController::class, 'show']);
 Route::get('/doctors/specialty/{specialty}', [DoctorController::class, 'filterBySpecialty']);
 
+// Citas - Rutas públicas
+Route::get('/appointments/available/{doctorId}', [AppointmentController::class, 'getAvailableSlots']);
+
 // ============ RUTAS PROTEGIDAS (Requieren autenticación Sanctum) ============
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -43,4 +47,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/doctors', [DoctorController::class, 'store']);
     Route::put('/doctors/{id}', [DoctorController::class, 'update']);
     Route::delete('/doctors/{id}', [DoctorController::class, 'destroy']);
+
+    // Citas - Rutas protegidas
+    Route::get('/appointments', [AppointmentController::class, 'index']);
+    Route::get('/appointments/{id}', [AppointmentController::class, 'show']);
+    Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::put('/appointments/{id}', [AppointmentController::class, 'update']);
+    Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy']);
 });

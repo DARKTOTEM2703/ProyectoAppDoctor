@@ -15,18 +15,25 @@ class ApiService {
   /// 
   /// [endpoint] - Ruta del endpoint (ej: 'login', 'register')
   /// [data] - Datos a enviar en el body
+  /// [token] - Token de autenticación opcional (Sanctum)
   /// Returns: Respuesta decodificada como Map
   static Future<Map<String, dynamic>> post(
     String endpoint,
-    Map<String, dynamic> data,
-  ) async {
+    Map<String, dynamic> data, {
+    String? token,
+  }) async {
     try {
       final url = '${Config.fullApiUrl}/$endpoint';
       print('POST Request to: $url'); // Debug
       
+      final headers = Map<String, String>.from(_headers);
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+      
       final response = await http.post(
         Uri.parse(url),
-        headers: _headers,
+        headers: headers,
         body: jsonEncode(data),
       );
 
