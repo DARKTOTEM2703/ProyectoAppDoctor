@@ -1,11 +1,15 @@
 import 'package:appdoctor/components/boton.dart';
+import 'package:appdoctor/models/doctor_model.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:appdoctor/components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
+  final Doctor? doctor;
+
   const DoctorDetails({
     super.key,
+    this.doctor,
   });
 
   @override
@@ -18,6 +22,9 @@ class _DoctorDetails extends State<DoctorDetails> {
 
   @override
   Widget build(BuildContext context) {
+    // Obtener el doctor del argumento si no fue proporcionado
+    final doctor = ModalRoute.of(context)?.settings.arguments as Doctor? ?? widget.doctor;
+
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Información del Doctor',
@@ -42,8 +49,8 @@ class _DoctorDetails extends State<DoctorDetails> {
           child: Column(
             children: <Widget>[
               // aquí construimos la tarjeta del doctor
-              InformacionDoctor(),
-              DetailBody(), // Asegúrate de incluir el cuerpo del detalle
+              InformacionDoctor(doctor: doctor),
+              DetailBody(doctor: doctor), // Asegúrate de incluir el cuerpo del detalle
               Padding(
                 padding: const EdgeInsets.all(
                     20), // EdgeInsets.all(20) es un padding de 20
@@ -60,7 +67,7 @@ class _DoctorDetails extends State<DoctorDetails> {
                       width: double.infinity,
                       tittle: 'Libro de citas',
                       onPressed: () {
-                        Navigator.of(context).pushNamed('booking_page');
+                        Navigator.of(context).pushNamed('booking_page', arguments: doctor);
                         setState(() {
                           isBooked = !isBooked;
                         });
@@ -79,13 +86,21 @@ class _DoctorDetails extends State<DoctorDetails> {
 }
 
 class InformacionDoctor extends StatelessWidget {
+  final Doctor? doctor;
+
   const InformacionDoctor({
     super.key,
+    this.doctor,
   });
 
   @override
   Widget build(BuildContext context) {
     Config.init(context);
+    
+    final doctorName = doctor?.doctorName ?? 'Dr. Juan Pérez';
+    final category = doctor?.category ?? 'Dermatología';
+    final bioData = doctor?.bioData ?? 'Especialista en medicina con más de 10 años de experiencia.';
+
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -97,35 +112,30 @@ class InformacionDoctor extends StatelessWidget {
           ),
           Config.espacioMediano,
           Text(
-            'Dr. Juan Pérez',
-            style: TextStyle(
+            doctorName,
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
           Config.espacioPequeno,
-          SizedBox(
-            width: Config.anchoDePantalla! * 0.75,
-            child: const Text(
-              'Especialista en medicina, egresado de la UADY, con más de 10 años de experiencia en el campo de la dermatología.',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey,
-              ),
-              softWrap: true,
-              textAlign: TextAlign.center,
+          Text(
+            category,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500,
             ),
           ),
           Config.espacioPequeno,
           SizedBox(
             width: Config.anchoDePantalla! * 0.75,
-            child: const Text(
-              'Hospital general de Mérida',
-              style: TextStyle(
+            child: Text(
+              bioData,
+              style: const TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.grey,
               ),
               softWrap: true,
               textAlign: TextAlign.center,
@@ -138,12 +148,17 @@ class InformacionDoctor extends StatelessWidget {
 }
 
 class DetailBody extends StatelessWidget {
+  final Doctor? doctor;
+
   const DetailBody({
     super.key,
+    this.doctor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bioData = doctor?.bioData ?? 'Doctor especializado en medicina general con experiencia en atención primaria.';
+
     return Container(
       padding: const EdgeInsets.all(20), //Aqui pongo el padding de 20
       margin: const EdgeInsets.only(bottom: 30), //Aqui pongo el margen de 30
@@ -152,7 +167,7 @@ class DetailBody extends StatelessWidget {
             .stretch, //CrossAxisAlignment.stretch asegura que los elementos se expandan horizontalmente
         children: <Widget>[
           Config.espacioPequeno,
-          DoctorInfo(),
+          DoctorInfo(doctor: doctor),
           Config.espacioMediano,
           const Text(
             'Acerca del Doctor',
@@ -167,8 +182,8 @@ class DetailBody extends StatelessWidget {
           Config
               .espacioPequeno, //Aqui extraigo la clase espacioPequeno desde config.dart
           Text(
-            'Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes. El Dr. Juan Pérez es un médico especialista en dermatología con más de 10 años de experiencia en el campo. Ha trabajado en varios hospitales y ha tratado a más de 100 pacientes con éxito. Es conocido por su habilidad para tratar enfermedades de la piel y su enfoque amigable con los pacientes.',
-            style: TextStyle(
+            bioData,
+            style: const TextStyle(
               height: 1.5, //Aqui ponemos el espaciado entre lineas
               fontWeight: FontWeight.w500, // aqui ponemos el grosor de la letra
             ),
@@ -184,30 +199,37 @@ class DetailBody extends StatelessWidget {
 }
 
 class DoctorInfo extends StatelessWidget {
+  final Doctor? doctor;
+
   const DoctorInfo({
     super.key,
+    this.doctor,
   });
 
   @override
   Widget build(BuildContext context) {
     Config.init(context);
+    
+    final patients = doctor?.patients?.toString() ?? '109';
+    final experience = doctor?.experience?.toString() ?? '10';
+
     return Row(
       children: <Widget>[
         InfoCard(
           label: 'Pacientes',
-          value: '109',
+          value: patients,
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         InfoCard(
           label: 'Experiencia',
-          value: '10 años',
+          value: '$experience años',
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
-        InfoCard(
+        const InfoCard(
           label: 'Calificación',
           value: '4.5',
         ),

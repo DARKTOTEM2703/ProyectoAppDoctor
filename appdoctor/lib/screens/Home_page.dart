@@ -1,5 +1,7 @@
 import 'package:appdoctor/components/appointment_card.dart';
 import 'package:appdoctor/components/doctor_card.dart';
+import 'package:appdoctor/models/doctor_model.dart';
+import 'package:appdoctor/services/doctor_service.dart';
 import 'package:appdoctor/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +42,15 @@ class _HomePageState extends State<HomePage> {
       "nombre": "Dentista",
     },
   ];
+
+  late Future<List<Doctor>> doctorsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    doctorsFuture = DoctorService.getAllDoctors();
+  }
+
   // Estado de la página de inicio
   @override
   Widget build(BuildContext context) {
@@ -174,12 +185,39 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Config.espacioPequeno, // Espacio pequeño
-                      Column(
-                        children: List.generate(10, (index) {
-                          return const TarjetaDoctor(
-                            route: 'doc_details',
-                          );
-                        }),
+                      FutureBuilder<List<Doctor>>(
+                        future: doctorsFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  'Error: ${snapshot.error}',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text('No se encontraron doctores'),
+                            );
+                          } else {
+                            final doctors = snapshot.data!;
+                            return Column(
+                              children: List.generate(doctors.length, (index) {
+                                return TarjetaDoctor(
+                                  doctor: doctors[index],
+                                  route: 'doc_details',
+                                );
+                              }),
+                            );
+                          }
+                        },
                       )
                     ],
                   ),
